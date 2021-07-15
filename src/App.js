@@ -7,9 +7,9 @@ export class App extends Component {
  
   render() {
     return (
-      <>
-      <Recipe/>
-      </>
+      <div>
+        <Recipe />
+      </div>
     )
   }
 }

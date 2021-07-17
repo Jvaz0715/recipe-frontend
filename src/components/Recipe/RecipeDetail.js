@@ -3,6 +3,13 @@ import axios from "axios";
 
 
 export class RecipeDetail extends Component {
+    state = {
+       dishName: "",
+       dishImg: "",
+       recipeID: this.props.location.recipeID,
+       recipeURL: "",
+    }
+
    async componentDidMount() {
        this.getRecipe();
    }
@@ -10,10 +17,16 @@ export class RecipeDetail extends Component {
    getRecipe = async () => {
        try {
             
-             let singleRecipeEndpoint = await axios.get(`https://api.edamam.com/api/recipes/v2/${this.props.location.recipeID}?type=public&app_id=${process.env.REACT_APP_RECIPE_APPID}&app_key=${process.env.REACT_APP_RECIPE_APIKEY}`);
+             let singleRecipeEndpoint = await axios.get(`https://api.edamam.com/api/recipes/v2/${this.state.recipeID}?type=public&app_id=${process.env.REACT_APP_RECIPE_APPID}&app_key=${process.env.REACT_APP_RECIPE_APIKEY}`);
              
 
              console.log(singleRecipeEndpoint.data.recipe)
+
+             this.setState({
+                 dishName: singleRecipeEndpoint.data.recipe.label,
+                 dishImg: singleRecipeEndpoint.data.recipe.image,
+                 recipeURL: singleRecipeEndpoint.data.recipe.url,
+             })
         
         } catch(e) {
            console.log(e)
@@ -25,8 +38,16 @@ export class RecipeDetail extends Component {
         // console.log(this.props.location.recipeID)
         return (
             
-            <div>
-                Hello, This will be the recipe page
+            <div style={{display: "flex", flexDirection:"column"}}>
+                <div>
+                    <img src={this.state.dishImg} alt={this.state.dishName}/>
+                </div>
+                <div>
+                    <h1>{this.state.dishName}</h1>
+                    <a href={this.state.recipeURL} target="_blank" rel="noreferrer">Click Here for recipe</a>
+                </div>
+                
+    
             </div>
         )
     }

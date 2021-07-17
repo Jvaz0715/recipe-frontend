@@ -7,6 +7,8 @@ import { Link } from "react-router-dom";
     //-recipe name
     // -
 function RecipeList(props) {
+    console.log("props in recipelist")
+    console.log(props);
     return props.recipeHitsArray.map((item) => {
         return (
             <div
@@ -16,7 +18,8 @@ function RecipeList(props) {
                 {/* we are going to use Link here, and create the route/router in our main server. A link CANNOT be used without or outside a router  */}
                 <Link
                     to={{
-                        pathname: `/recipe-detail/${item.recipe.label}`
+                        pathname: `/recipe-detail/${item.recipe.label}`,
+                        recipeID: props.recipeHitsArray[props.recipeHitsArray.indexOf(item)].recipeUriId,
                     }}
                 >
                     <div>

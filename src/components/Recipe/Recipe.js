@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import axios from "axios";
 
-import { Link } from "react-router-dom";
+// import { Link } from "react-router-dom";
 
 import RecipeList from "./RecipeList";
 import "./Recipe.css";
@@ -28,14 +28,32 @@ export class Recipe extends Component {
       recipeSearch: event.target.value,
     });
   };
+  // this function was created to isolate just the id portion of the URI as opposed to using the href self link that exposes my api id and key
+  // we use this in the handlesearchrecipes to create a new array with just the recipe object and the isolated recipe id, we will need this to get our endpoint for recipe detail
+  getRecipeID = (string) => {
+    const recipeURI = string.split("_");
+    // console.log(recipeURI[1]);
+    return recipeURI[1]
+}
   
   handleSearchRecipes = async (recipeSearched) => {
     try {
       let recipeData = await axios.get(
         `https://api.edamam.com/api/recipes/v2?type=public&q=${recipeSearched}&app_id=${process.env.REACT_APP_RECIPE_APPID}&app_key=${process.env.REACT_APP_RECIPE_APIKEY}`
       );
-      // recipeData.data.hits lets us target the array of recipes which contains 20 recipe objects REF: EDAMAM DOCUMENTATION
-      return recipeData.data.hits;
+      
+      // because our data.hits also exposes our api keys in the _link.href property, we need to loop through the hits array of objects and only return the RECIPE property
+
+      let justRecipesNoHREFS = [];
+
+      for (let i = 0; i < recipeData.data.hits.length; i++) {
+        let recipeUriId = this.getRecipeID(recipeData.data.hits[i].recipe.uri)
+        justRecipesNoHREFS.push({recipe: recipeData.data.hits[i].recipe, recipeUriId: recipeUriId});
+      }
+      
+      //this will return an array of objects whose only property is a recipe object that does not expose sensitive information
+      return justRecipesNoHREFS;
+      
 
     } catch (e) {
       return e;

@@ -3,22 +3,7 @@
 
 
 function RecipeList(props) {
-    // console.log("props array")
-    // console.log(props.recipeHitsArray)
-    // console.log("this is the recipe object")
-    // console.log(props.recipeHitsArray[0].recipe)
-
-    // for (let i = 0; i < props.recipeHitsArray.length; i++) {
-    //     // console.log("this is the recipename")
-    //     console.log(props.recipeHitsArray[i].recipe.label)
-    //     console.log(i)
-    // }
-    // console.log("this is the recipe name")
-    // console.log(props.recipeHitsArray[0].recipe.label)
-    // console.log("this is the recipe image url")
-    // console.log(props.recipeHitsArray[0].recipe.image)
-
-    // return null;
+    
     return props.recipeHitsArray.map((item) => {
         return (
             <div

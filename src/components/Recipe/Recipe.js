@@ -32,8 +32,9 @@ export class Recipe extends Component {
       let recipeData = await axios.get(
         `https://api.edamam.com/api/recipes/v2?type=public&q=${recipeSearched}&app_id=${process.env.REACT_APP_RECIPE_APPID}&app_key=${process.env.REACT_APP_RECIPE_APIKEY}`
       );
-
+      // recipeData.data.hits lets us target the array of recipes which contains 20 recipe objects REF: EDAMAM DOCUMENTATION
       return recipeData.data.hits;
+
     } catch (e) {
       return e;
     }
@@ -41,16 +42,11 @@ export class Recipe extends Component {
 
   onSubmit = async (event) => {
     try {
+      // onSubmit, we pass the state's recipeSearch input into the handleSearchRecipes helper function
       let recipeResults = await this.handleSearchRecipes(this.state.recipeSearch);
-      // console.log("everything we get back from edamam api")
-      // console.log(recipeResults);
-      // console.log("the data we will work with")
-      // console.log(recipeResults.data);
-      // console.log("hits will be the return array of recipes");
-      // console.log(recipeResults.data.hits);
-      // console.log("loop through and return each recipe");
   
-      
+      // we then setState so that the recipeHitsArray is set to our search above
+      //ATTN: the recipeResults should return an array of 20 recipe objects [{0},{1},{2}...{19}]
       this.setState({
         recipeHitsArray: recipeResults,
       })
@@ -76,6 +72,7 @@ export class Recipe extends Component {
           style={{
             width: 1500,
             margin: "0 auto",
+            marginBottom: "100px",
             textAlign: "center",
             marginTop: "50px",
             display: "flex",

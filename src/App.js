@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import Recipe from "./components/Recipe/Recipe";
+
+import MainRouter from "./MainRouter";
 import "./App.css";
 
 export class App extends Component {
@@ -8,7 +9,7 @@ export class App extends Component {
   render() {
     return (
       <div>
-        <Recipe />
+        <MainRouter />
       </div>
     )
   }

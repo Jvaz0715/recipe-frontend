@@ -7,8 +7,7 @@ import { Link } from "react-router-dom";
     //-recipe name
     // -
 function RecipeList(props) {
-    console.log("props in recipelist")
-    console.log(props);
+    
     return props.recipeHitsArray.map((item) => {
         return (
             <div

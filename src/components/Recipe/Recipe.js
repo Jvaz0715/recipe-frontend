@@ -29,7 +29,7 @@ export class Recipe extends Component {
     });
   };
   // this function was created to isolate just the id portion of the URI as opposed to using the href self link that exposes my api id and key
-  // we use this in the handlesearchrecipes to create a new array with just the recipe object and the isolated recipe id, we will need this to get our endpoint for recipe detail
+  // we use this in the handlesearchrecipes to create a new array with just the recipe object and the isolated recipe id, we will need this to get our endpoint for recipe
   getRecipeID = (string) => {
     const recipeURI = string.split("_");
     // console.log(recipeURI[1]);
@@ -41,7 +41,8 @@ export class Recipe extends Component {
       let recipeData = await axios.get(
         `https://api.edamam.com/api/recipes/v2?type=public&q=${recipeSearched}&app_id=${process.env.REACT_APP_RECIPE_APPID}&app_key=${process.env.REACT_APP_RECIPE_APIKEY}`
       );
-      
+
+          
       // because our data.hits also exposes our api keys in the _link.href property, we need to loop through the hits array of objects and only return the RECIPE property
 
       let justRecipesNoHREFS = [];

@@ -6,17 +6,17 @@ export class RecipeDetail extends Component {
     state = {
        dishName: "",
        dishImg: "",
-       recipeID: this.props.location.recipeID,
+       recipeID: this.props.location.recipeID, // We set this from our "to" in recipe.js <Link/> we need this id to complete our axios get request
        recipeURL: "",
     }
-
+    // Why do componentDidMount()? TEST:
    async componentDidMount() {
        this.getRecipe();
    }
 
    getRecipe = async () => {
        try {
-            
+             
              let singleRecipeEndpoint = await axios.get(`https://api.edamam.com/api/recipes/v2/${this.state.recipeID}?type=public&app_id=${process.env.REACT_APP_RECIPE_APPID}&app_key=${process.env.REACT_APP_RECIPE_APIKEY}`);
              
 

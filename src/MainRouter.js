@@ -2,7 +2,7 @@ import React from "react";
 import { BrowserRouter as Router, Route } from "react-router-dom";
 
 // bring in the components that will need routes using react-router-dom
-
+import Signup from "./components/Signup/Signup";
 import Recipe from "./components/Recipe/Recipe";
 import RecipeDetail from "./components/Recipe/RecipeDetail";
 
@@ -13,8 +13,12 @@ const MainRouter = (/*props will go here once we make private routes. props will
         <Router>
             
             <Route
-                exact path="/" component={Recipe}
+                exact path="/" component={Signup}
             />
+             <Route
+                exact path="/sign-up" component={Signup}
+            />
+
             {/* for now we make a public route to Recipe, later we change to private to make users signup for app */}
             <Route
                 exact path="/recipe" component={Recipe}

@@ -16,7 +16,7 @@ export class Recipe extends Component {
   async componentDidMount() {
     try {
       // this.setState({
-      //   recipeNamesArray: this.state.recipeNamesArray,
+      //   recipeNamesArray: this.state.recipeHitsArray,
       // })
     } catch(e) {
       console.log(e)
@@ -38,6 +38,7 @@ export class Recipe extends Component {
   
   handleSearchRecipes = async (recipeSearched) => {
     try {
+      
       let recipeData = await axios.get(
         `https://api.edamam.com/api/recipes/v2?type=public&q=${recipeSearched}&app_id=${process.env.REACT_APP_RECIPE_APPID}&app_key=${process.env.REACT_APP_RECIPE_APIKEY}`
       );
@@ -48,7 +49,8 @@ export class Recipe extends Component {
       let justRecipesNoHREFS = [];
 
       for (let i = 0; i < recipeData.data.hits.length; i++) {
-        let recipeUriId = this.getRecipeID(recipeData.data.hits[i].recipe.uri)
+        let recipeUriId = this.getRecipeID(recipeData.data.hits[i].recipe.uri);
+
         justRecipesNoHREFS.push({recipe: recipeData.data.hits[i].recipe, recipeUriId: recipeUriId});
       }
       

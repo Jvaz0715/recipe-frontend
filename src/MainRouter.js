@@ -5,13 +5,14 @@ import { BrowserRouter as Router, Route } from "react-router-dom";
 import Signup from "./components/Signup/Signup";
 import Recipe from "./components/Recipe/Recipe";
 import RecipeDetail from "./components/Recipe/RecipeDetail";
+import PrivateRoute from "./components/PrivateRoute/PrivateRoute";
 
 const MainRouter = (/*props will go here once we make private routes. props will be coming from App.js */) => {
     //in here we make a <Router> Which will encompass the routes, and later the private routes, to get to our componenets</Router>
     // Router comes in from react-router-dom
     return (
         <Router>
-            
+          <>  
             <Route
                 exact path="/" component={Signup}
             />
@@ -19,16 +20,16 @@ const MainRouter = (/*props will go here once we make private routes. props will
                 exact path="/sign-up" component={Signup}
             />
 
-            {/* for now we make a public route to Recipe, later we change to private to make users signup for app */}
-            <Route
+            {/* we apply privateroute to our recipe page */}
+            <PrivateRoute
                 exact path="/recipe" component={Recipe}
             />
 
-            {/* for now we make a public route to RecipeDetail(targets single recipe), later we change to private to make users signup for app */}
-            <Route
+            {/* we apply privateroute to our recipeDetail page */}
+            <PrivateRoute
                 exact path="/recipe-detail/:recipeLabel" component={RecipeDetail}
             />
-
+          </>
         </Router>   
     )
     

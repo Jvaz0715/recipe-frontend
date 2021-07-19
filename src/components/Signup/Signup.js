@@ -28,6 +28,12 @@ export class Signup extends Component {
         passwordOnFocus: false,
         confirmPasswordOnFocus: false,
     };
+    
+    // we need to bring in our authorization check
+    // REF: the checkIfUserIsAuth.js that relies on the authToken we set up in the setAxiosAuthToken.js
+    componentDidMount() {
+
+    }
 
     handleOnChange = (event) => {
         // this makes our inputs dynamic, so we could use one handleOnChange for all our inputs, the second argument will have more complex auth functionality
@@ -277,6 +283,7 @@ export class Signup extends Component {
   };
 
     render() {
+        //we bring in our state object in order to use it in our "html"
         const {
             firstName,
             lastName,

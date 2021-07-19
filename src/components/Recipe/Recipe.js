@@ -13,15 +13,15 @@ export class Recipe extends Component {
     recipeHitsArray: [],
   }
 
-  async componentDidMount() {
-    try {
-      // this.setState({
-      //   recipeNamesArray: this.state.recipeHitsArray,
-      // })
-    } catch(e) {
-      console.log(e)
-    }
-  }
+  // async componentDidMount() {
+  //   try {
+  //     // this.setState({
+  //     //   recipeNamesArray: this.state.recipeHitsArray,
+  //     // })
+  //   } catch(e) {
+  //     console.log(e)
+  //   }
+  // }
   
   handleOnChange = (event) => {
     this.setState({

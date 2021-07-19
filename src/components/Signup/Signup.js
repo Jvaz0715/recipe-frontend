@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+// import jwtDecode from "jwt-decode";
 import { isAlpha, isEmail, isAlphanumeric, isStrongPassword } from "validator";
 import { toast } from "react-toastify";
 import Axios from "../utils/Axios";
@@ -38,7 +39,7 @@ export class Signup extends Component {
         let isAuth = checkIfUserIsAuth();
 
         if (isAuth) {
-            this.props.history.push("/movie");
+            this.props.history.push("/recipe");
         }
     };
 
@@ -290,7 +291,7 @@ export class Signup extends Component {
   };
 
     render() {
-        //we bring in our state object in order to use it in our "html"
+       
         const {
             firstName,
             lastName,
@@ -305,6 +306,7 @@ export class Signup extends Component {
             passwordError,
             confirmPasswordError,
         } = this.state;
+        //we bring in our state object in order to use it in our "html"
         
         return (
             <div className="container">

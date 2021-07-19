@@ -2,7 +2,7 @@ import React from "react";
 import { Route, Redirect } from "react-router-dom";
 import checkIfUserIsAuth from "../utils/checkIfUserIsAuth";
 
-const PrivateRoute = ({ component: Component, /*handleUserLogout,*/ ...rest }) => {
+const PrivateRoute = ({ component: Component, handleUserLogout, ...rest }) => {
     
     return (
       <Route
@@ -11,7 +11,7 @@ const PrivateRoute = ({ component: Component, /*handleUserLogout,*/ ...rest }) =
           //we use our imported function to check if user is authorized
           checkIfUserIsAuth() ? (
             //if user is authorized we use spread operator and get routerProps
-            <Component {...routerProps} /*handleUserLogout={handleUserLogout}*/ />
+            <Component {...routerProps} handleUserLogout={handleUserLogout} />
           ) : (
             // we use react-router-dom Redirect property to redirect to the login page if trying to hard code /movie url without logging in
             <Redirect to="/login" />
@@ -21,7 +21,7 @@ const PrivateRoute = ({ component: Component, /*handleUserLogout,*/ ...rest }) =
     );
 };
   
-  export default PrivateRoute;
+export default PrivateRoute;
 
 /* 
 

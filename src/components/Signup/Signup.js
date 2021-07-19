@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { isAlpha, isEmail, isAlphanumeric, isStrongPassword } from "validator";
 import { toast } from "react-toastify";
 import Axios from "../utils/Axios";
-// import checkIfUserIsAuth from "../utils/checkIfUserIsAuth";
+import checkIfUserIsAuth from "../utils/checkIfUserIsAuth";
 import "./Signup.css";
 
 export class Signup extends Component {
@@ -31,9 +31,16 @@ export class Signup extends Component {
     
     // we need to bring in our authorization check
     // REF: the checkIfUserIsAuth.js that relies on the authToken we set up in the setAxiosAuthToken.js
+    //to avoid coming back to sign up page if you are logged in, we use component didmount to check if tehre is an authorized user prop
+    // if tehre is one, we take them to the /movie page
+    //otherwise the user will see a signup page
     componentDidMount() {
+        let isAuth = checkIfUserIsAuth();
 
-    }
+        if (isAuth) {
+            this.props.history.push("/movie");
+        }
+    };
 
     handleOnChange = (event) => {
         // this makes our inputs dynamic, so we could use one handleOnChange for all our inputs, the second argument will have more complex auth functionality

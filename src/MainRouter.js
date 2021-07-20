@@ -2,6 +2,7 @@ import React from "react";
 import { BrowserRouter as Router, Route } from "react-router-dom";
 
 // bring in the components that will need routes using react-router-dom
+import Nav from "./components/Nav/Nav";
 import Signup from "./components/Signup/Signup";
 import Login from "./components/Login/Login";
 import Home from "./components/Home/Home";
@@ -14,29 +15,30 @@ const MainRouter = (props) => {
     // Router comes in from react-router-dom
     return (
         <Router>
-          <>  
-            <Route exact path="/" component={Home} />
-            <Route exact path="/sign-up" component={Signup} />
+            <Nav user={props.user} handleUserLogout={props.handleUserLogout} />
+            <>  
+                <Route exact path="/" component={Home} />
+                <Route exact path="/sign-up" component={Signup} />
 
-            <Route
-                exact path="/login"
-                render={(routerProps) => (
-                    <Login {...routerProps} handleUserLogin={props.handleUserLogin} />
-                )}
-            />
+                <Route
+                    exact path="/login"
+                    render={(routerProps) => (
+                        <Login {...routerProps} handleUserLogin={props.handleUserLogin} />
+                    )}
+                />
 
-            {/* we apply privateroute to our recipe page */}
-            <PrivateRoute
-                exact path="/recipe" component={Recipe}
-            />
+                {/* we apply privateroute to our recipe page */}
+                <PrivateRoute
+                    exact path="/recipe" component={Recipe}
+                />
 
-            {/* we apply privateroute to our recipeDetail page */}
-            <PrivateRoute
-                exact 
-                path="/recipe-detail/:recipeLabel" 
-                component={RecipeDetail}
-            />
-          </>
+                {/* we apply privateroute to our recipeDetail page */}
+                <PrivateRoute
+                    exact 
+                    path="/recipe-detail/:recipeLabel" 
+                    component={RecipeDetail}
+                />
+            </>
         </Router>   
     )
     

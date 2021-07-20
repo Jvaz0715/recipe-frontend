@@ -11,6 +11,7 @@ export class Recipe extends Component {
   state = {
     recipeSearch: "",
     recipeHitsArray: [],
+    nextPageEndpoint: "",
   }
 
   // async componentDidMount() {
@@ -51,11 +52,38 @@ export class Recipe extends Component {
       for (let i = 0; i < recipeData.data.hits.length; i++) {
         let recipeUriId = this.getRecipeID(recipeData.data.hits[i].recipe.uri);
 
-        justRecipesNoHREFS.push({recipe: recipeData.data.hits[i].recipe, recipeUriId: recipeUriId});
-      }
-      
+        justRecipesNoHREFS.push({recipe: recipeData.data.hits[i].recipe, recipeUriId: recipeUriId, });
+      };
+
+      let nextEndpoint = recipeData.data._links.next.href
       //this will return an array of objects whose only property is a recipe object that does not expose sensitive information
+      console.log(justRecipesNoHREFS)
+      this.setState({
+        recipeHitsArray: justRecipesNoHREFS,
+        nextPageEndpoint: nextEndpoint,
+      })
       return justRecipesNoHREFS;
+    
+      
+
+    } catch (e) {
+      return e;
+    }
+  };
+
+  handleGetNextPageEndpoint = async (recipeSearched) => {
+    try {
+  
+      let recipeData = await axios.get(
+        `https://api.edamam.com/api/recipes/v2?type=public&q=${recipeSearched}&app_id=${process.env.REACT_APP_RECIPE_APPID}&app_key=${process.env.REACT_APP_RECIPE_APIKEY}`
+      );
+      
+    
+      // because our data.hits also exposes our api keys in the _link.href property, we need to loop through the hits array of objects and only return the RECIPE property
+
+      this.setState({
+        nextPageEndpoint: recipeData.data._links.next.href,  
+      })
       
 
     } catch (e) {
@@ -66,13 +94,15 @@ export class Recipe extends Component {
   onSubmit = async (event) => {
     try {
       // onSubmit, we pass the state's recipeSearch input into the handleSearchRecipes helper function
-      let recipeResults = await this.handleSearchRecipes(this.state.recipeSearch);
-  
+      /*let recipeResults =*/ await this.handleSearchRecipes(this.state.recipeSearch);
+      // let nextPage = await this.handleGetNextPageEndpoint(this.state.recipeSearch);
       // we then setState so that the recipeHitsArray is set to our search above
       //ATTN: the recipeResults should return an array of 20 recipe objects [{0},{1},{2}...{19}]
-      this.setState({
-        recipeHitsArray: recipeResults,
-      })
+      // this.setState({
+      //   recipeHitsArray: recipeResults,
+      //   /* nextPageEndpoint: nextPage,*/ 
+      // })
+      console.log(this.state);
     } catch (e) {
       console.log(e);
     }
@@ -80,7 +110,7 @@ export class Recipe extends Component {
 
   render() {
     return (
-      <div>
+      <div className="recipeBody">
         
         <div className="input-div">
           <input 
@@ -90,6 +120,10 @@ export class Recipe extends Component {
             onChange={this.handleOnChange}
           />
         <button className="search-recipe-button" onClick={this.onSubmit}>Submit</button>
+        </div>
+        <div>
+          <button>previous page</button>
+          <button>next page</button>
         </div>
         <div
           style={{
@@ -102,7 +136,7 @@ export class Recipe extends Component {
             flexWrap: "wrap"
           }}
         >
-          <RecipeList recipeHitsArray={this.state.recipeHitsArray}/>
+          {/* <RecipeList recipeHitsArray={this.state.recipeHitsArray}/> */}
         </div>
         
         

@@ -1,6 +1,15 @@
+.recipeBody {
+  height: 100%
+}
+
 .input-div {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-top: 20px;
-  }
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px;
+  
+}
+
+.recipe-search {
+  width: 300px;
+}

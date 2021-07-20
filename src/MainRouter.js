@@ -9,6 +9,7 @@ import Home from "./components/Home/Home";
 import Recipe from "./components/Recipe/Recipe";
 import RecipeDetail from "./components/Recipe/RecipeDetail";
 import PrivateRoute from "./components/PrivateRoute/PrivateRoute";
+import Footer from "./components/Footer/Footer";
 
 const MainRouter = (props) => {
     //in here we make a <Router> Which will encompass the routes, and later the private routes, to get to our componenets</Router>
@@ -39,6 +40,7 @@ const MainRouter = (props) => {
                     component={RecipeDetail}
                 />
             </>
+            <Footer />
         </Router>   
     )
     

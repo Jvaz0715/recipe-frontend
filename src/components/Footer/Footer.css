@@ -1,22 +1,26 @@
-.Navbar {
+.Footer {
     height: 75px;
     background-color: #b7b5c4;
     color: white;
     display: flex;
     align-items: center;
     justify-content: space-between;
-  }
+    position: relative;
+    left:0;
+    bottom:0;
+    right:0;
+}
   
-  .h1-logo {
+.h1-logo {
     padding: 20px;
   }
   
-  .h1-logo a {
+.h1-logo a {
     text-decoration: none;
     color: white;
   }
   
-  .h1-logo h1 {
+.h1-logo h1 {
     font-size: 20px;
   }
   

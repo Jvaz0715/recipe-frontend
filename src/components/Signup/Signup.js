@@ -232,6 +232,7 @@ export class Signup extends Component {
             console.log(success);
             //toast message card for success
             toast.success(`${success.data.message}`);
+            this.props.history.push("/recipe");
         } catch (e) {
             //toast message card for error
             toast.error(`${e.response.data.message}`);

@@ -128,7 +128,7 @@ export class Login extends Component {
       //we provide a toast message card
       toast.success("Login success!");
       //if login is successful, we take the user to the /movie url
-      this.props.history.push("/movie");
+      this.props.history.push("/recipe");
     } catch (e) {
       //we create error message cards for a 429 error or any other error
       if (e.response.status === 429) {

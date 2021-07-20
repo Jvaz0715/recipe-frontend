@@ -15,7 +15,7 @@ export class Footer extends Component {
                 <div className="right-side-nav">
                     <ul>
                         <li>
-                            <a activeClassName="selected" href="https://developer.edamam.com/?gclid=Cj0KCQjw6NmHBhD2ARIsAI3hrM12yfymRj-OKp8o8rILKEzIPo5Pm5qP-SuRdtdjr_PRqEf1vWhPG-gaAlTyEALw_wcB">
+                            <a href="https://developer.edamam.com/?gclid=Cj0KCQjw6NmHBhD2ARIsAI3hrM12yfymRj-OKp8o8rILKEzIPo5Pm5qP-SuRdtdjr_PRqEf1vWhPG-gaAlTyEALw_wcB">
                                 Edamam API Documentation
                             </a>
                         </li>

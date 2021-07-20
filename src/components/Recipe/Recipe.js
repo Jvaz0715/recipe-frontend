@@ -35,16 +35,29 @@ export class Recipe extends Component {
     const recipeURI = string.split("_");
     // console.log(recipeURI[1]);
     return recipeURI[1]
-}
+  };
+
+  getRecipeNextPageCode =  (string) => {
+    let _contIndex = string.indexOf("_cont");
+    let _cont3Dindex = string.indexOf("%3D") + 3;
+    const nextPageParams = string.slice(_contIndex, _cont3Dindex);
+
+    return nextPageParams;
+  }
   
   handleSearchRecipes = async (recipeSearched) => {
     try {
+      let recipeData;
+      if (!this.state.nextPageEndpoint) {
+        recipeData = await axios.get(
+          `https://api.edamam.com/api/recipes/v2?type=public&q=${recipeSearched}&app_id=${process.env.REACT_APP_RECIPE_APPID}&app_key=${process.env.REACT_APP_RECIPE_APIKEY}`
+        );
+      } else {
+        recipeData = await axios.get(
+          `https://api.edamam.com/api/recipes/v2?type=public&q=${recipeSearched}&app_id=${process.env.REACT_APP_RECIPE_APPID}&app_key=${process.env.REACT_APP_RECIPE_APIKEY}&type=public&${this.state.nextPageEndpoint}`
+        );
+      }
       
-      let recipeData = await axios.get(
-        `https://api.edamam.com/api/recipes/v2?type=public&q=${recipeSearched}&app_id=${process.env.REACT_APP_RECIPE_APPID}&app_key=${process.env.REACT_APP_RECIPE_APIKEY}`
-      );
-
-          
       // because our data.hits also exposes our api keys in the _link.href property, we need to loop through the hits array of objects and only return the RECIPE property
 
       let justRecipesNoHREFS = [];
@@ -55,12 +68,12 @@ export class Recipe extends Component {
         justRecipesNoHREFS.push({recipe: recipeData.data.hits[i].recipe, recipeUriId: recipeUriId, });
       };
 
-      let nextEndpoint = recipeData.data._links.next.href
+      let nextEndpointParams = this.getRecipeNextPageCode(recipeData.data._links.next.href);
       //this will return an array of objects whose only property is a recipe object that does not expose sensitive information
-      console.log(justRecipesNoHREFS)
+      // console.log(justRecipesNoHREFS)
       this.setState({
         recipeHitsArray: justRecipesNoHREFS,
-        nextPageEndpoint: nextEndpoint,
+        nextPageEndpoint: nextEndpointParams,
       })
       return justRecipesNoHREFS;
     
@@ -71,42 +84,19 @@ export class Recipe extends Component {
     }
   };
 
-  handleGetNextPageEndpoint = async (recipeSearched) => {
-    try {
-  
-      let recipeData = await axios.get(
-        `https://api.edamam.com/api/recipes/v2?type=public&q=${recipeSearched}&app_id=${process.env.REACT_APP_RECIPE_APPID}&app_key=${process.env.REACT_APP_RECIPE_APIKEY}`
-      );
-      
-    
-      // because our data.hits also exposes our api keys in the _link.href property, we need to loop through the hits array of objects and only return the RECIPE property
-
-      this.setState({
-        nextPageEndpoint: recipeData.data._links.next.href,  
-      })
-      
-
-    } catch (e) {
-      return e;
-    }
-  };
-
   onSubmit = async (event) => {
     try {
-      // onSubmit, we pass the state's recipeSearch input into the handleSearchRecipes helper function
-      /*let recipeResults =*/ await this.handleSearchRecipes(this.state.recipeSearch);
-      // let nextPage = await this.handleGetNextPageEndpoint(this.state.recipeSearch);
-      // we then setState so that the recipeHitsArray is set to our search above
-      //ATTN: the recipeResults should return an array of 20 recipe objects [{0},{1},{2}...{19}]
-      // this.setState({
-      //   recipeHitsArray: recipeResults,
-      //   /* nextPageEndpoint: nextPage,*/ 
-      // })
-      console.log(this.state);
+      console.log("this.state on each click")
+      console.log(this.state)
+      await this.handleSearchRecipes(this.state.recipeSearch);
     } catch (e) {
       console.log(e);
     }
-  }
+  };
+
+  
+
+  
 
   render() {
     return (
@@ -123,7 +113,7 @@ export class Recipe extends Component {
         </div>
         <div>
           <button>previous page</button>
-          <button>next page</button>
+          <button onClick={this.onSubmit}>next page</button>
         </div>
         <div
           style={{
@@ -136,7 +126,7 @@ export class Recipe extends Component {
             flexWrap: "wrap"
           }}
         >
-          {/* <RecipeList recipeHitsArray={this.state.recipeHitsArray}/> */}
+          <RecipeList recipeHitsArray={this.state.recipeHitsArray}/>
         </div>
         
         

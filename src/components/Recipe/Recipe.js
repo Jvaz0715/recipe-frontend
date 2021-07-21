@@ -84,19 +84,17 @@ export class Recipe extends Component {
     }
   };
 
-  onSubmit = async (event) => {
+  onSubmit = async (event) => {             
     try {
       console.log("this.state on each click")
-      console.log(this.state)
+      
       await this.handleSearchRecipes(this.state.recipeSearch);
+      console.log(this.state)
+
     } catch (e) {
       console.log(e);
     }
   };
-
-  
-
-  
 
   render() {
     return (

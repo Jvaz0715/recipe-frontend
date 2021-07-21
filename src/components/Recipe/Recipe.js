@@ -12,6 +12,8 @@ export class Recipe extends Component {
     recipeSearch: "",
     recipeHitsArray: [],
     nextPageEndpoint: "",
+    recipeFrom: "",
+    recipeTo: "",
   }
 
   // async componentDidMount() {
@@ -37,48 +39,75 @@ export class Recipe extends Component {
     return recipeURI[1]
   };
 
-  getRecipeNextPageCode =  (string) => {
-    let _contIndex = string.indexOf("_cont");
-    let _cont3Dindex = string.indexOf("%3D") + 3;
-    const nextPageParams = string.slice(_contIndex, _cont3Dindex);
-
-    return nextPageParams;
+  getRecipeNextPageCode =  (nextEndpoint) => {
+    let appIdStartIndex = nextEndpoint.indexOf("app_id");
+    let appIDEndIndex = appIdStartIndex + 16;
+    let appID = nextEndpoint.slice(appIdStartIndex, appIDEndIndex);
+    nextEndpoint = nextEndpoint.replace(appID, "");
+    // console.log(“this is endpoint with replaced app_id”)
+    // console.log(nextEndpoint)
+  
+    let appKeyStartIndex = nextEndpoint.indexOf("&app_key");
+    let appKeyEndIndex = appKeyStartIndex + 41;
+    let appKey = nextEndpoint.slice(appKeyStartIndex, appKeyEndIndex);
+    nextEndpoint = nextEndpoint.replace(appKey, "");
+  // console.log(“this is endpoint with everything cloaked”)
+  // console.log(nextEndpoint);
+    return nextEndpoint;
   }
   
-  handleSearchRecipes = async (recipeSearched) => {
+  //create function just forgiving back data
+
+  handleSearchRecipesDynamic = async(dataReturn) => {
+    
+    let justRecipesNoHREFS = [];
+
+    for (let i = 0; i < dataReturn.data.hits.length; i++) {
+      let recipeUriId = await this.getRecipeID(dataReturn.data.hits[i].recipe.uri);
+
+      justRecipesNoHREFS.push({recipe: dataReturn.data.hits[i].recipe, recipeUriId: recipeUriId, });
+    };
+
+    let nextEndpointParams = await this.getRecipeNextPageCode(dataReturn.data._links.next.href);
+
+    
+    //this will return an array of objects whose only property is a recipe object that does not expose sensitive information
+    // console.log(justRecipesNoHREFS)
+    this.setState({
+      recipeHitsArray: justRecipesNoHREFS,
+      nextPageEndpoint: nextEndpointParams,
+      recipeFrom: dataReturn.data.from,
+      recipeTo: dataReturn.data.to,
+    })
+    console.log("this is from handle search dynamic")
+    console.log(this.state)
+  }
+
+  handleSearchRecipesOnSubmit = async (recipeSearched) => {
     try {
-      let recipeData;
-      if (!this.state.nextPageEndpoint) {
-        recipeData = await axios.get(
+      let recipeData = await axios.get(
           `https://api.edamam.com/api/recipes/v2?type=public&q=${recipeSearched}&app_id=${process.env.REACT_APP_RECIPE_APPID}&app_key=${process.env.REACT_APP_RECIPE_APIKEY}`
         );
-      } else {
+       
+  
+      this.handleSearchRecipesDynamic(recipeData)
+      
+    } catch (e) {
+      return e;
+    }
+  };
+
+  handleSearchRecipesOnNext = async (recipeSearched) => {
+    try {
+      let recipeData;
+
+      if(this.state.nextPageEndpoint) {
         recipeData = await axios.get(
-          `https://api.edamam.com/api/recipes/v2?type=public&q=${recipeSearched}&app_id=${process.env.REACT_APP_RECIPE_APPID}&app_key=${process.env.REACT_APP_RECIPE_APIKEY}&type=public&${this.state.nextPageEndpoint}`
+          `${this.state.nextPageEndpoint}app_id=${process.env.REACT_APP_RECIPE_APPID}&app_key=${process.env.REACT_APP_RECIPE_APIKEY}`
         );
-      }
-      
-      // because our data.hits also exposes our api keys in the _link.href property, we need to loop through the hits array of objects and only return the RECIPE property
-
-      let justRecipesNoHREFS = [];
-
-      for (let i = 0; i < recipeData.data.hits.length; i++) {
-        let recipeUriId = this.getRecipeID(recipeData.data.hits[i].recipe.uri);
-
-        justRecipesNoHREFS.push({recipe: recipeData.data.hits[i].recipe, recipeUriId: recipeUriId, });
       };
-
-      let nextEndpointParams = this.getRecipeNextPageCode(recipeData.data._links.next.href);
-      //this will return an array of objects whose only property is a recipe object that does not expose sensitive information
-      // console.log(justRecipesNoHREFS)
-      this.setState({
-        recipeHitsArray: justRecipesNoHREFS,
-        nextPageEndpoint: nextEndpointParams,
-      })
-      return justRecipesNoHREFS;
-    
+      this.handleSearchRecipesDynamic(recipeData)
       
-
     } catch (e) {
       return e;
     }
@@ -88,7 +117,7 @@ export class Recipe extends Component {
     try {
       console.log("this.state on each click")
       
-      await this.handleSearchRecipes(this.state.recipeSearch);
+      await this.handleSearchRecipesOnSubmit(this.state.recipeSearch);
       console.log(this.state)
 
     } catch (e) {
@@ -109,10 +138,26 @@ export class Recipe extends Component {
           />
         <button className="search-recipe-button" onClick={this.onSubmit}>Submit</button>
         </div>
-        <div>
+
+        <div className="page-nav-div">
+          
           <button>previous page</button>
-          <button onClick={this.onSubmit}>next page</button>
+          
+          <div>
+          {this.state.recipeFrom && this.state.recipeTo ? 
+            (<div className="recipe-range">
+              {this.state.recipeFrom} to {this.state.recipeTo}
+            </div>
+            ) : (
+              ""
+            )
+          }
+          </div>
+            
+          <button onClick={this.handleSearchRecipesOnNext}>next page</button>
+
         </div>
+
         <div
           style={{
             width: 1500,

@@ -141,7 +141,11 @@ export class Recipe extends Component {
 
         <div className="page-nav-div">
           
-          <button>previous page</button>
+          <button
+            disabled={!this.state.recipeFrom || this.state.recipeFrom === 1 ? (true):(false)}
+          >
+            previous page
+          </button>
           
           <div>
           {this.state.recipeFrom && this.state.recipeTo ? 
@@ -154,7 +158,12 @@ export class Recipe extends Component {
           }
           </div>
             
-          <button onClick={this.handleSearchRecipesOnNext}>next page</button>
+          <button 
+            onClick={this.handleSearchRecipesOnNext}
+            disabled={this.state.recipeTo >= 120 ? (true):(false)}
+          >
+            next page
+          </button>
 
         </div>
 

@@ -11,10 +11,12 @@ export class Recipe extends Component {
   state = {
     recipeSearch: "",
     recipeHitsArray: [],
-    nextPageEndpoint: "",
-    previousPageEndpoint: "",
+    previousPage: "",
+      nextPage: "", 
     recipeFrom: "",
     recipeTo: "",
+   
+
   }
 
   // async componentDidMount() {
@@ -40,7 +42,7 @@ export class Recipe extends Component {
     return recipeURI[1]
   };
 
-  getRecipeNextPageCode =  (nextEndpoint) => {
+  getCleanURLCloaked =  (nextEndpoint) => {
     let appIdStartIndex = nextEndpoint.indexOf("app_id");
     let appIDEndIndex = appIdStartIndex + 16;
     let appID = nextEndpoint.slice(appIdStartIndex, appIDEndIndex);
@@ -59,29 +61,33 @@ export class Recipe extends Component {
   
   //create function just forgiving back data
 
-  handleSearchRecipesDynamic = async(dataReturn) => {
+  handleSearchRecipesDynamic = async(returnedData) => {
     
     let justRecipesNoHREFS = [];
 
-    for (let i = 0; i < dataReturn.data.hits.length; i++) {
-      let recipeUriId = await this.getRecipeID(dataReturn.data.hits[i].recipe.uri);
+    for (let i = 0; i < returnedData.data.hits.length; i++) {
+      let recipeUriId = await this.getRecipeID(returnedData.data.hits[i].recipe.uri);
 
-      justRecipesNoHREFS.push({recipe: dataReturn.data.hits[i].recipe, recipeUriId: recipeUriId, });
+      justRecipesNoHREFS.push({recipe: returnedData.data.hits[i].recipe, recipeUriId: recipeUriId, });
     };
 
-    let nextEndpointParams = await this.getRecipeNextPageCode(dataReturn.data._links.next.href);
-
-    let prevEndpointParams = await this.getRecipeNextPageCode(dataReturn.config.url);
+    let currentPageURL = await this.getCleanURLCloaked(returnedData.config.url);
+    
+    let nextPageURL = await this.getCleanURLCloaked(returnedData.data._links.next.href);
+    
+  
     
     //this will return an array of objects whose only property is a recipe object that does not expose sensitive information
     // console.log(justRecipesNoHREFS)
     this.setState({
       recipeHitsArray: justRecipesNoHREFS,
-      nextPageEndpoint: nextEndpointParams,
-      previousPageEndpoint: prevEndpointParams,
-      recipeFrom: dataReturn.data.from,
-      recipeTo: dataReturn.data.to,
+      recipeFrom: returnedData.data.from,
+      recipeTo: returnedData.data.to,
+      previousPage: currentPageURL,
+      nextPage: nextPageURL, 
     })
+    console.log("Look at all data returned here")
+    console.log(returnedData);
   }
 
   handleSearchRecipesOnSubmit = async (recipeSearched) => {
@@ -90,25 +96,21 @@ export class Recipe extends Component {
           `https://api.edamam.com/api/recipes/v2?type=public&q=${recipeSearched}&app_id=${process.env.REACT_APP_RECIPE_APPID}&app_key=${process.env.REACT_APP_RECIPE_APIKEY}`
         );
        
-      this.handleSearchRecipesDynamic(recipeData)
-    
+      this.handleSearchRecipesDynamic(recipeData);
+  
     } catch (e) {
       return e;
     }
   };
 
-  handleSearchRecipesOnNext = async (recipeSearched) => {
+  handleSearchRecipesOnNext = async () => {
     try {
-      let recipeData;
-
-      if(this.state.nextPageEndpoint) {
-        recipeData = await axios.get(
-          `${this.state.nextPageEndpoint}app_id=${process.env.REACT_APP_RECIPE_APPID}&app_key=${process.env.REACT_APP_RECIPE_APIKEY}`
+      let recipeData = await axios.get(
+          `${this.state.nextPage}app_id=${process.env.REACT_APP_RECIPE_APPID}&app_key=${process.env.REACT_APP_RECIPE_APIKEY}`
         );
-      };
-      this.handleSearchRecipesDynamic(recipeData)
-      window.sessionStorage.setItem("previousPage", this.state.previousPageEndpoint);
       
+      this.handleSearchRecipesDynamic(recipeData)
+          
     } catch (e) {
       return e;
     }
@@ -116,17 +118,11 @@ export class Recipe extends Component {
 
   handleSearchRecipesOnPrev = async () => {
     try {
-      let recipeData;
-
-      let previousPage = window.sessionStorage.getItem("previousPage");
-
-      if(previousPage) {
-        recipeData = await axios.get(
-          `${previousPage}&app_id=${process.env.REACT_APP_RECIPE_APPID}&app_key=${process.env.REACT_APP_RECIPE_APIKEY}`
+      let recipeData = await axios.get(
+          `${this.state.previousPage}&app_id=${process.env.REACT_APP_RECIPE_APPID}&app_key=${process.env.REACT_APP_RECIPE_APIKEY}`
         );
-      };
+  
       this.handleSearchRecipesDynamic(recipeData)
-      
     } catch (e) {
       return e;
     }
@@ -135,9 +131,9 @@ export class Recipe extends Component {
   onSubmit = async (event) => {             
     try {
       // console.log("this.state on each click")
-      
       await this.handleSearchRecipesOnSubmit(this.state.recipeSearch);
-      window.sessionStorage.setItem("previousPage", this.state.previousPageEndpoint);
+      window.sessionStorage.setItem("currentPage", this.state.pagePrevious);
+      window.sessionStorage.setItem("nextPage", this.state.pageNext);
     
     } catch (e) {
       console.log(e);
@@ -208,3 +204,6 @@ export class Recipe extends Component {
 }
 
 export default Recipe;
+
+
+

@@ -11,12 +11,8 @@ export class Recipe extends Component {
   state = {
     recipeSearch: "",
     recipeHitsArray: [],
-    previousPage: "",
-      nextPage: "", 
-    recipeFrom: "",
-    recipeTo: "",
-   
-
+    nextPage: "", 
+    totalRecipes: 0,
   }
 
   // async componentDidMount() {
@@ -42,7 +38,7 @@ export class Recipe extends Component {
     return recipeURI[1]
   };
 
-  getCleanURLCloaked =  (nextEndpoint) => {
+  getCloakedURL =  (nextEndpoint) => {
     let appIdStartIndex = nextEndpoint.indexOf("app_id");
     let appIDEndIndex = appIdStartIndex + 16;
     let appID = nextEndpoint.slice(appIdStartIndex, appIDEndIndex);
@@ -63,40 +59,38 @@ export class Recipe extends Component {
 
   handleSearchRecipesDynamic = async(returnedData) => {
     
-    let justRecipesNoHREFS = [];
+    let justRecipesNoHREFS = this.state.recipeHitsArray;
 
     for (let i = 0; i < returnedData.data.hits.length; i++) {
       let recipeUriId = await this.getRecipeID(returnedData.data.hits[i].recipe.uri);
 
-      justRecipesNoHREFS.push({recipe: returnedData.data.hits[i].recipe, recipeUriId: recipeUriId, });
+      justRecipesNoHREFS.unshift({recipe: returnedData.data.hits[i].recipe, recipeUriId: recipeUriId, });
     };
 
-    let currentPageURL = await this.getCleanURLCloaked(returnedData.config.url);
+    let nextPageURL = await this.getCloakedURL(returnedData.data._links.next.href);
     
-    let nextPageURL = await this.getCleanURLCloaked(returnedData.data._links.next.href);
     
-  
-    
-    //this will return an array of objects whose only property is a recipe object that does not expose sensitive information
-    // console.log(justRecipesNoHREFS)
+    // this will return an array of objects whose only property is a recipe object that does not expose sensitive information
+    console.log(justRecipesNoHREFS)
     this.setState({
       recipeHitsArray: justRecipesNoHREFS,
-      recipeFrom: returnedData.data.from,
-      recipeTo: returnedData.data.to,
-      previousPage: currentPageURL,
+      totalRecipes: returnedData.data.to,
       nextPage: nextPageURL, 
     })
-    console.log("Look at all data returned here")
-    console.log(returnedData);
   }
 
   handleSearchRecipesOnSubmit = async (recipeSearched) => {
     try {
       let recipeData = await axios.get(
           `https://api.edamam.com/api/recipes/v2?type=public&q=${recipeSearched}&app_id=${process.env.REACT_APP_RECIPE_APPID}&app_key=${process.env.REACT_APP_RECIPE_APIKEY}`
-        );
+      );
        
+      
       this.handleSearchRecipesDynamic(recipeData);
+
+
+      console.log("on submit, after this.handleSearchRecipesDynamic(recipeData) runs, this is the this.state data")
+      console.log(this.state);
   
     } catch (e) {
       return e;
@@ -116,24 +110,11 @@ export class Recipe extends Component {
     }
   };
 
-  handleSearchRecipesOnPrev = async () => {
-    try {
-      let recipeData = await axios.get(
-          `${this.state.previousPage}&app_id=${process.env.REACT_APP_RECIPE_APPID}&app_key=${process.env.REACT_APP_RECIPE_APIKEY}`
-        );
-  
-      this.handleSearchRecipesDynamic(recipeData)
-    } catch (e) {
-      return e;
-    }
-  };
-
   onSubmit = async (event) => {             
     try {
       // console.log("this.state on each click")
       await this.handleSearchRecipesOnSubmit(this.state.recipeSearch);
-      window.sessionStorage.setItem("currentPage", this.state.pagePrevious);
-      window.sessionStorage.setItem("nextPage", this.state.pageNext);
+      
     
     } catch (e) {
       console.log(e);
@@ -156,29 +137,21 @@ export class Recipe extends Component {
 
         <div className="page-nav-div">
           
-          <button
-          onClick={this.handleSearchRecipesOnPrev}
-            disabled={!this.state.recipeFrom || this.state.recipeFrom === 1 ? (true):(false)}
-          >
-            previous page
-          </button>
-          
           <div>
-          {this.state.recipeFrom && this.state.recipeTo ? 
+          {this.state.totalRecipes ? 
             (<div className="recipe-range">
-              {this.state.recipeFrom} to {this.state.recipeTo}
+              Total Results {this.state.totalRecipes} of 120
             </div>
             ) : (
-              ""
+              "Results"
             )
           }
           </div>
-            
           <button 
             onClick={this.handleSearchRecipesOnNext}
-            disabled={this.state.recipeTo >= 120 ? (true):(false)}
+            disabled={this.state.totalRecipes < 1 || this.state.totalRecipes >= 120 ? (true):(false)}
           >
-            next page
+            More recipes...
           </button>
 
         </div>

@@ -1,31 +1,37 @@
 import React, { Component } from 'react';
 // import axios from "axios";
-
-// import { Link } from "react-router-dom";
-
+// import { toast } from "react-toastify";
+import Axios from "../utils/Axios";
 import FavoriteRecipesList from "./FavoriteRecipesList";
+
 import "./Recipe.css";
 
 export class Recipe extends Component {
   
   state = {
-    recipeSearch: "",
     recipeHitsArray: [],
-    nextPage: "", 
-    totalRecipes: 0,
   }
 
-  // async componentDidMount() {
-  //   try {
-  //     // this.setState({
-  //     //   recipeNamesArray: this.state.recipeHitsArray,
-  //     // })
-  //   } catch(e) {
-  //     console.log(e)
-  //   }
-  // }
+  async componentDidMount() {
+    this.handleGetAllFaveFriends();
+  }
+    
+  handleGetAllFaveFriends = async () => {
+    try {
+      let getAllFriends = await Axios.get("/api/favorite-recipes/get-all-fave-recipes");
+      console.log("getAllFriends")
+      console.log(getAllFriends)
+      this.setState({
+        recipeHitsArray: getAllFriends.data,
+      })
+      console.log("this.state.recipeHitsArray")
+      console.log(this.state.recipeHitsArray)
+    } catch (e) {
+      // toast.error(e.response.data.payload);
+    }
+  };
 
-
+  
   render() {
     return (
       <div className="recipeBody">
@@ -49,7 +55,9 @@ export class Recipe extends Component {
             marginTop: "50px",
             display: "flex",
             flexWrap: "wrap"
-          }}><FavoriteRecipesList recipeHitsArray={this.state.recipeHitsArray}/></div>
+          }}>
+            <FavoriteRecipesList recipeHitsArray={this.state.recipeHitsArray}/>
+            </div>
           
         </div>
         

@@ -19,14 +19,16 @@ export class RecipeDetail extends Component {
              
              let singleRecipeEndpoint = await axios.get(`https://api.edamam.com/api/recipes/v2/${this.state.recipeID}?type=public&app_id=${process.env.REACT_APP_RECIPE_APPID}&app_key=${process.env.REACT_APP_RECIPE_APIKEY}`);
              
-            console.log("this is inside recipedetail.js data.recipe")
-             console.log(singleRecipeEndpoint.data.recipe)
 
-             this.setState({
-                 dishName: singleRecipeEndpoint.data.recipe.label,
-                 dishImg: singleRecipeEndpoint.data.recipe.image,
-                 recipeURL: singleRecipeEndpoint.data.recipe.url,
-             })
+           
+
+            this.setState({
+                dishName: singleRecipeEndpoint.data.recipe.label,
+                dishImg: singleRecipeEndpoint.data.recipe.image,
+                recipeURL: singleRecipeEndpoint.data.recipe.url,
+            })
+
+            console.log(this.state)
         
         } catch(e) {
            console.log(e)

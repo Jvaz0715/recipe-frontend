@@ -1,5 +1,8 @@
 import React from 'react';
-import { Link } from "react-router-dom";
+// import { Link } from "react-router-dom";
+// import axios from "axios";
+// import { toast } from "react-toastify";
+// import Axios from "../utils/Axios";
 
 // Using the props we passed into <RecipeList /> in Recipe.js,
 // we map through the props.recipeHitsArray, and create individual "cards" that include:
@@ -7,29 +10,25 @@ import { Link } from "react-router-dom";
     //-recipe name
     // -
 function FavoriteRecipesList(props) {
-    
+   
     return props.recipeHitsArray.map((item) => {
         return (
+            <div>
             <div
-                key={props.recipeHitsArray.indexOf(item)}
+                key={item.recipeID}
                 style={{ width: 300, height: 300, display: "flex", flexDirection:"column", margin: "30px"}}
             >
-                {/* we are going to use Link here, and create the route/router in our main server. A link CANNOT be used without or outside a router  */}
-                <Link
-                    to={{
-                        pathname: `/recipe-detail/${item.recipe.label}`,
-                        recipeID: props.recipeHitsArray[props.recipeHitsArray.indexOf(item)].recipeUriId,
-                    }}
-                >
-                    <div>
-                        <img src={item.recipe.image} alt={item.recipe.label}/>
-                    </div>
-                    <div>
-                        [{props.recipeHitsArray.indexOf(item) + 1}] {item.recipe.label}
-                    </div>  
+                <div>
+                    <img src={item.dishImg} alt={item.dishName}/>
+                </div>
+                <div>
+                    <a href={item.recipeURL}>
+                       [{props.recipeHitsArray.indexOf(item) + 1}] {item.dishName} 
+                    </a>
+                    
+                </div>  
 
-                </Link>
-
+            </div>
             </div>
         )
     })

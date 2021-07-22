@@ -112,6 +112,8 @@ export class Recipe extends Component {
 
   onSubmit = async (event) => {             
     try {
+      event.target.value ="";
+      this.state.recipeHitsArray = [];
       // console.log("this.state on each click")
       await this.handleSearchRecipesOnSubmit(this.state.recipeSearch);
       
@@ -155,9 +157,22 @@ export class Recipe extends Component {
           </button>
 
         </div>
-
+        
         <div
           style={{
+            width: 1500,
+            margin: "0 auto",
+          
+            textAlign: "center",
+            marginTop: "50px",
+            display: "flex",
+            flexWrap: "wrap"
+          }}
+        > 
+          <div 
+          hidden={this.state.totalRecipes === 20 || this.state.totalRecipes >= 120 ? (true):(false)}
+          >Newest to Oldest results</div>
+          <div style={{
             width: 1500,
             margin: "0 auto",
             marginBottom: "100px",
@@ -165,9 +180,8 @@ export class Recipe extends Component {
             marginTop: "50px",
             display: "flex",
             flexWrap: "wrap"
-          }}
-        >
-          <RecipeList recipeHitsArray={this.state.recipeHitsArray}/>
+          }}><RecipeList recipeHitsArray={this.state.recipeHitsArray}/></div>
+          
         </div>
         
         

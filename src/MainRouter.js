@@ -7,6 +7,7 @@ import Signup from "./components/Signup/Signup";
 import Login from "./components/Login/Login";
 import Home from "./components/Home/Home";
 import Recipe from "./components/Recipe/Recipe";
+import FavoriteRecipes from "./components/FavoriteRecipes/FavoriteRecipes";
 import RecipeDetail from "./components/Recipe/RecipeDetail";
 import PrivateRoute from "./components/PrivateRoute/PrivateRoute";
 import Footer from "./components/Footer/Footer";
@@ -38,6 +39,13 @@ const MainRouter = (props) => {
                     exact 
                     path="/recipe-detail/:recipeLabel" 
                     component={RecipeDetail}
+                />
+
+                {/* we apply privateroute to our recipeDetail page */}
+                <PrivateRoute
+                    exact 
+                    path="/favorite-recipes" 
+                    component={FavoriteRecipes}
                 />
             </>
             <Footer />

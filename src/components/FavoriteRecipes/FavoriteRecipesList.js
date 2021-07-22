@@ -4,11 +4,7 @@ import React from 'react';
 // import { toast } from "react-toastify";
 // import Axios from "../utils/Axios";
 
-// Using the props we passed into <RecipeList /> in Recipe.js,
-// we map through the props.recipeHitsArray, and create individual "cards" that include:
-    // -recipe image
-    //-recipe name
-    // -
+
 function FavoriteRecipesList(props) {
    
     return props.recipeHitsArray.map((item) => {

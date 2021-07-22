@@ -17,9 +17,10 @@ export class Recipe extends Component {
 
   // async componentDidMount() {
   //   try {
-  //     // this.setState({
-  //     //   recipeNamesArray: this.state.recipeHitsArray,
-  //     // })
+  //     this.setState({
+  //       recipeSearch: this.state.recipeSearch,
+  //       recipeHitsArray: this.state.RecipeHitsArray,
+  //     })
   //   } catch(e) {
   //     console.log(e)
   //   }
@@ -43,15 +44,12 @@ export class Recipe extends Component {
     let appIDEndIndex = appIdStartIndex + 16;
     let appID = nextEndpoint.slice(appIdStartIndex, appIDEndIndex);
     nextEndpoint = nextEndpoint.replace(appID, "");
-    // console.log(“this is endpoint with replaced app_id”)
-    // console.log(nextEndpoint)
   
     let appKeyStartIndex = nextEndpoint.indexOf("&app_key");
     let appKeyEndIndex = appKeyStartIndex + 41;
     let appKey = nextEndpoint.slice(appKeyStartIndex, appKeyEndIndex);
     nextEndpoint = nextEndpoint.replace(appKey, "");
-  // console.log(“this is endpoint with everything cloaked”)
-  // console.log(nextEndpoint);
+
     return nextEndpoint;
   }
   
@@ -71,13 +69,12 @@ export class Recipe extends Component {
     
     
     // this will return an array of objects whose only property is a recipe object that does not expose sensitive information
-    console.log(justRecipesNoHREFS)
     this.setState({
       recipeHitsArray: justRecipesNoHREFS,
       totalRecipes: returnedData.data.to,
       nextPage: nextPageURL, 
     })
-  }
+  };
 
   handleSearchRecipesOnSubmit = async (recipeSearched) => {
     try {
@@ -87,10 +84,6 @@ export class Recipe extends Component {
        
       
       this.handleSearchRecipesDynamic(recipeData);
-
-
-      console.log("on submit, after this.handleSearchRecipesDynamic(recipeData) runs, this is the this.state data")
-      console.log(this.state);
   
     } catch (e) {
       return e;
@@ -114,10 +107,9 @@ export class Recipe extends Component {
     try {
       event.target.value ="";
       this.state.recipeHitsArray = [];
-      // console.log("this.state on each click")
-      await this.handleSearchRecipesOnSubmit(this.state.recipeSearch);
       
-    
+      await this.handleSearchRecipesOnSubmit(this.state.recipeSearch);
+     
     } catch (e) {
       console.log(e);
     }
@@ -170,7 +162,7 @@ export class Recipe extends Component {
           }}
         > 
           <div 
-          hidden={this.state.totalRecipes === 20 || this.state.totalRecipes >= 120 ? (true):(false)}
+          hidden={this.state.totalRecipes <= 20 || this.state.totalRecipes >= 120 ? (true):(false)}
           >Newest to Oldest results</div>
           <div style={{
             width: 1500,

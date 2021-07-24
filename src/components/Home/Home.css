@@ -1,0 +1,34 @@
+.home-container {
+    /* border: 3px solid green; */
+    
+}
+
+.home-body-div {
+    /* border: 3px solid blue; */
+    display: flex;
+    flex-direction: row;
+    height: 100%;
+}
+
+.home-images-div {
+    /* border: 3px solid red; */
+    /* background-color: yellow; */
+    width: 40%;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.home-images-div img {
+    /* border: 3px solid red; */
+    width: 90%;
+    height: auto;
+}
+
+.home-app-description-div {
+    width: 60%;
+    height: 100vh;
+    /* border: 3px solid brown; */
+}
+

@@ -12,7 +12,7 @@ function RecipeList(props) {
         return (
             <div
                 key={props.recipeHitsArray.indexOf(item)}
-                style={{ width: 300, height: 300, display: "flex", flexDirection:"column", margin: "30px"}}
+                style={{ width: 300, height: 300, display: "flex", flexDirection:"column", margin: "30px"} }
             >
                 {/* we are going to use Link here, and create the route/router in our main server. A link CANNOT be used without or outside a router  */}
                 <Link

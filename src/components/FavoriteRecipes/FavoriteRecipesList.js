@@ -6,12 +6,15 @@ import React from 'react';
 
 
 function FavoriteRecipesList(props) {
-   
+    
     return props.recipeHitsArray.map((item) => {
+        console.log("this is props")
+    console.log(props)
         return (
+            
             <div>
             <div
-                key={item.recipeID}
+                key={item._id}
                 style={{ width: 300, height: 300, display: "flex", flexDirection:"column", margin: "30px"}}
             >
                 <div>
@@ -21,6 +24,13 @@ function FavoriteRecipesList(props) {
                     <a href={item.recipeURL}>
                        [{props.recipeHitsArray.indexOf(item) + 1}] {item.dishName} 
                     </a>
+                    <div>
+                        <button
+                            onClick={() => props.deleteFaveRecipe(item._id)}
+                        >
+                            remove recipe
+                        </button>
+                    </div>
                     
                 </div>  
 

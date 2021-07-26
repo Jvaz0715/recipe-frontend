@@ -15,20 +15,42 @@ export class Recipe extends Component {
   async componentDidMount() {
     this.handleGetAllFaveRecipes();
   }
-    
+
   handleGetAllFaveRecipes = async () => {
     try {
       let getAllRecipes = await Axios.get("/api/favorite-recipes/get-all-fave-recipes");
 
       console.log(getAllRecipes)
       this.setState({
-        recipeHitsArray: getAllRecipes.data.recipes,
+        recipeHitsArray: getAllRecipes.data,
       })
     } catch (e) {
       // toast.error(e.response.data.payload);
     }
   };
 
+  handleDeleteByRecipe = (user) => {
+    let newArray = this.state.recipeHitsArray.filter((recipe) => recipe._id !== user._id);
+
+    this.setState({
+      recipeHitsArray: newArray,
+    })
+
+  }
+  deleteFaveRecipe = async(id) => {
+      try {
+       
+          let deletedRecipe = await Axios.delete(`/api/favorite-recipes/delete-recipe/${id}`);
+          console.log(deletedRecipe);
+          this.handleDeleteByRecipe(deletedRecipe.data.payload);
+          //toast message card for success
+          // toast.success(`${deletedRecipe.data.message}`);
+      } catch (e) {
+          // toast message card for error
+          toast.error(`${e.response.data.message}`);
+          console.log(`${e.response.data.message}`)
+      };
+  }
   
   render() {
     return (
@@ -54,7 +76,10 @@ export class Recipe extends Component {
             display: "flex",
             flexWrap: "wrap"
           }}>
-            <FavoriteRecipesList recipeHitsArray={this.state.recipeHitsArray}/>
+            <FavoriteRecipesList 
+              recipeHitsArray={this.state.recipeHitsArray}
+              deleteFaveRecipe={this.deleteFaveRecipe}
+            />
             </div>
           
         </div>

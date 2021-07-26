@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import axios from "axios";
 import Axios from "../utils/Axios";
-// import { toast } from "react-toastify";
+import { toast } from "react-toastify";
 import "./Recipe.css";
 
 export class RecipeDetail extends Component {
@@ -9,8 +9,7 @@ export class RecipeDetail extends Component {
     dishName: "",
     dishImg: "",
     recipeID: this.props.location.recipeID, // We set this from our "to" in recipe.js <Link/> we need this id to complete our axios get request
-    recipeURL: "",
-    isFavoritedToggle: false,   
+    recipeURL: "",   
     };
 
     // Why do componentDidMount()? TEST:
@@ -52,16 +51,15 @@ export class RecipeDetail extends Component {
         try {
             //will serve as second argment in our axios.post(url, userinputobj)
             let faveRecipeObj = {
-                dishName: this.state.dishName,
-                dishImg: this.state.dishImg,
-                recipeURL: this.state.recipeURL,       
+                dishName: window.localStorage.getItem("dishName"),
+                dishImg: window.localStorage.getItem("dishImg"),
+                recipeURL: window.localStorage.getItem("recipeURL"),      
             };
             
-            //get the .post url from back end to match, second argument will serve as the req.body, and we create a new fave recipe in our database
             let success = await Axios.post("/api/favorite-recipes/add-recipe", faveRecipeObj);
             console.log(success);
-            // //toast message card for success
-            // toast.success(`${success.data.message}`);
+            //toast message card for success
+            toast.success(`${success.data.message}`);
         } catch (e) {
             //toast message card for error
             // toast.error(`${e.response.data.message}`);
@@ -69,7 +67,6 @@ export class RecipeDetail extends Component {
     };
 
     render() {
-        // console.log(this.props.location.recipeID)
         return (
             
             <div style={{display: "flex", flexDirection:"column"}}>

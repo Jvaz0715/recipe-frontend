@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import axios from "axios";
 import Axios from "../utils/Axios";
-import { toast } from "react-toastify";
+// import { toast } from "react-toastify";
 import "./Recipe.css";
 
 export class RecipeDetail extends Component {
@@ -10,7 +10,7 @@ export class RecipeDetail extends Component {
     dishImg: "",
     recipeID: this.props.location.recipeID, // We set this from our "to" in recipe.js <Link/> we need this id to complete our axios get request
     recipeURL: "",
-    isFavorited: null,   
+    isFavoritedToggle: false,   
     };
 
     // Why do componentDidMount()? TEST:
@@ -32,6 +32,9 @@ export class RecipeDetail extends Component {
             window.localStorage.setItem("dishImg", singleRecipeEndpoint.data.recipe.image)
             
             window.localStorage.setItem("recipeURL", singleRecipeEndpoint.data.recipe.url)
+
+            
+
             this.setState({
                 dishName: singleRecipeEndpoint.data.recipe.label,
                 dishImg: singleRecipeEndpoint.data.recipe.image,
@@ -45,30 +48,25 @@ export class RecipeDetail extends Component {
         }
     };
 
-    handleFavorite = async (event) => {
-        //this will prevent browser from refreshing and losing data
-        
+    handleAddtoFavorite = async (event) => {
         try {
             //will serve as second argment in our axios.post(url, userinputobj)
             let faveRecipeObj = {
-                dishName: window.localStorage.getItem("dishName"),
-                dishImg: window.localStorage.getItem("dishImg"),
-                recipeURL: window.localStorage.getItem("recipeURL"),
-                recipeID: window.localStorage.getItem("recipeID"),
+                dishName: this.state.dishName,
+                dishImg: this.state.dishImg,
+                recipeURL: this.state.recipeURL,       
             };
-        
+            
             //get the .post url from back end to match, second argument will serve as the req.body, and we create a new fave recipe in our database
             let success = await Axios.post("/api/favorite-recipes/add-recipe", faveRecipeObj);
             console.log(success);
-            //toast message card for success
-            toast.success(`${success.data.message}`);
-            
+            // //toast message card for success
+            // toast.success(`${success.data.message}`);
         } catch (e) {
             //toast message card for error
-            toast.error(`${e.response.data.message}`);
-        }
+            // toast.error(`${e.response.data.message}`);
+        };
     };
-
 
     render() {
         // console.log(this.props.location.recipeID)
@@ -81,12 +79,16 @@ export class RecipeDetail extends Component {
                 <div>
                     <div>
                     <h1>{window.localStorage.getItem("dishName")}</h1>
-                    <button 
-                        className="favorite-button"
-                        onClick={this.handleFavorite}
-                    >
-                        Add to favorites
-                    </button>
+                    <div>
+                        <button 
+                            className="favorite-button"
+                            onClick={this.handleAddtoFavorite}
+                        >
+                            add to favorites
+                        </button>
+                    </div>
+                    
+                    
                     </div>
                     
                     <a href={window.localStorage.getItem("recipeURL")} target="_blank" rel="noreferrer">Click Here for recipe</a>

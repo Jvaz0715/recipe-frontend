@@ -114,12 +114,12 @@ export class Login extends Component {
       // we declare a jwtToken that is yet to be decoded
       let jwtToken = result.data.payload;
 
-      console.log(jwtToken);
+      // console.log(jwtToken);
 
       setAxiosAuthToken(jwtToken)
       //we decode the above token
       let decodedToken = jwtDecode(jwtToken);
-      console.log(decodedToken);
+      // console.log(decodedToken);
 
       //we pass decoded token to our userlogin function
       this.props.handleUserLogin(decodedToken);

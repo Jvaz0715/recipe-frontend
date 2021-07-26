@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 // import axios from "axios";
-// import { toast } from "react-toastify";
+import { toast } from "react-toastify";
 import Axios from "../utils/Axios";
 import FavoriteRecipesList from "./FavoriteRecipesList";
 
@@ -13,21 +13,17 @@ export class Recipe extends Component {
   }
 
   async componentDidMount() {
-    this.handleGetAllFaveFriends();
+    this.handleGetAllFaveRecipes();
   }
     
-  handleGetAllFaveFriends = async () => {
+  handleGetAllFaveRecipes = async () => {
     try {
-      let getAllFriends = await Axios.get("/api/favorite-recipes/get-all-fave-recipes");
-      console.log("getAllFriends")
-      console.log(getAllFriends)
+      let getAllRecipes = await Axios.get("/api/favorite-recipes/get-all-fave-recipes");
       this.setState({
-        recipeHitsArray: getAllFriends.data,
+        recipeHitsArray: getAllRecipes.data.recipes,
       })
-      console.log("this.state.recipeHitsArray")
-      console.log(this.state.recipeHitsArray)
     } catch (e) {
-      // toast.error(e.response.data.payload);
+      toast.error(e.response.data.payload);
     }
   };
 

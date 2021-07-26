@@ -19,11 +19,13 @@ export class Recipe extends Component {
   handleGetAllFaveRecipes = async () => {
     try {
       let getAllRecipes = await Axios.get("/api/favorite-recipes/get-all-fave-recipes");
+
+      console.log(getAllRecipes)
       this.setState({
         recipeHitsArray: getAllRecipes.data.recipes,
       })
     } catch (e) {
-      toast.error(e.response.data.payload);
+      // toast.error(e.response.data.payload);
     }
   };
 

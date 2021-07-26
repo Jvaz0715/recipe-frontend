@@ -32,6 +32,8 @@ export class RecipeDetail extends Component {
             
             window.localStorage.setItem("recipeURL", singleRecipeEndpoint.data.recipe.url)
 
+            window.localStorage.setItem("recipeID", this.state.recipeID);
+
             
 
             this.setState({
@@ -39,7 +41,8 @@ export class RecipeDetail extends Component {
                 dishImg: singleRecipeEndpoint.data.recipe.image,
                 recipeURL: singleRecipeEndpoint.data.recipe.url,
             });
-
+            console.log("this is the getrecipe setstate")
+            console.log(this.state.recipeID)
             
         
         } catch(e) {
@@ -53,16 +56,19 @@ export class RecipeDetail extends Component {
             let faveRecipeObj = {
                 dishName: window.localStorage.getItem("dishName"),
                 dishImg: window.localStorage.getItem("dishImg"),
-                recipeURL: window.localStorage.getItem("recipeURL"),      
+                recipeURL: window.localStorage.getItem("recipeURL"),
+                recipeID: window.localStorage.getItem("recipeID"),      
             };
-            
+            console.log('faveRecipeObj')
+            console.log(faveRecipeObj)
             let success = await Axios.post("/api/favorite-recipes/add-recipe", faveRecipeObj);
             console.log(success);
             //toast message card for success
             toast.success(`${success.data.message}`);
         } catch (e) {
-            //toast message card for error
-            // toast.error(`${e.response.data.message}`);
+            // toast message card for error
+            toast.error(`${e.response.data.message}`);
+            console.log(`${e.response.data.message}`)
         };
     };
 

@@ -4,7 +4,7 @@ import axios from "axios";
 // import { Link } from "react-router-dom";
 import RecipeList from "./RecipeList";
 import "./Recipe.css";
-import { Button } from 'reactstrap';
+import { Button, Card, CardImg, CardText, CardBody, CardTitle } from 'reactstrap';
 
 export class Recipe extends Component {
   
@@ -129,11 +129,19 @@ export class Recipe extends Component {
          <Button className="search-recipe-button" onClick={this.onSubmit} color="danger">Search</Button> 
         {/* <button  onClick={this.onSubmit}>Submit</button> */}
         </div>
-
+  
         {/* we need something for the landing page, like three suggestion meals */}
-        <div>
-          
-        </div>
+        {/* <div>
+          <Card>
+            <CardImg  />
+            <CardBody>
+              <CardTitle>
+
+              </CardTitle>
+              <Button/>
+            </CardBody>
+          </Card> 
+        </div> */}
 
         <div className="page-nav-div">
           

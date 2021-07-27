@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from "react-router-dom";
+import "./Recipe.css";
 
 // Using the props we passed into <RecipeList /> in Recipe.js,
 // we map through the props.recipeHitsArray, and create individual "cards" that include:
@@ -12,20 +13,21 @@ function RecipeList(props) {
         return (
             <div
                 key={props.recipeHitsArray.indexOf(item)}
-                style={{ width: 300, height: 300, display: "flex", flexDirection:"column", margin: "30px"} }
+                style={{ width: 300, height: 300, display: "flex", flexDirection:"column", margin: "30px", textDecoration: "none"} }
             >
                 {/* we are going to use Link here, and create the route/router in our main server. A link CANNOT be used without or outside a router  */}
                 <Link
+                    style={{textDecoration:"none", color:"white"}}
                     to={{
                         pathname: `/recipe-detail/${item.recipe.label}`,
                         recipeID: props.recipeHitsArray[props.recipeHitsArray.indexOf(item)].recipeUriId,
                     }}
-                >
+                >   
                     <div>
                         <img src={item.recipe.image} alt={item.recipe.label}/>
                     </div>
-                    <div>
-                        [{props.recipeHitsArray.indexOf(item) + 1}] {item.recipe.label}
+                    <div style={{ border: "2px solid", backgroundColor:"#9e2a2b"}}>
+                        <p style={{ fontFamily:"georgia", fontSize:"18px", }}>[{props.recipeHitsArray.indexOf(item) + 1}] {item.recipe.label}</p>
                     </div>  
 
                 </Link>

@@ -13,7 +13,7 @@ import PrivateRoute from "./components/PrivateRoute/PrivateRoute";
 import Footer from "./components/Footer/Footer";
 
 const MainRouter = (props) => {
-    //in here we make a <Router> Which will encompass the routes, and later the private routes, to get to our componenets</Router>
+    //in here we make a <Router> Which will encompass the routes, and later the private routes, to get to our components</Router>
     // Router comes in from react-router-dom
     return (
         <Router>

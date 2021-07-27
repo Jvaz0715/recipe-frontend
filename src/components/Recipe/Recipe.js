@@ -129,6 +129,11 @@ export class Recipe extends Component {
         <button className="search-recipe-button" onClick={this.onSubmit}>Submit</button>
         </div>
 
+        {/* we need something for the landing page, like three suggestion meals */}
+        <div>
+          
+        </div>
+
         <div className="page-nav-div">
           
           <div>
@@ -137,13 +142,13 @@ export class Recipe extends Component {
               Total Results {this.state.totalRecipes} of 120
             </div>
             ) : (
-              "Results"
+              ""
             )
           }
           </div>
           <button 
             onClick={this.handleSearchRecipesOnNext}
-            disabled={this.state.totalRecipes < 1 || this.state.totalRecipes >= 120 ? (true):(false)}
+            hidden={this.state.totalRecipes < 1 || this.state.totalRecipes >= 120 ? (true):(false)}
           >
             More recipes...
           </button>

@@ -111,7 +111,7 @@ export class RecipeDetail extends Component {
                         </button>
            
                     </div>
-                    <div>
+                    <div className="table-container">
                         <table>
   
                             <tr>

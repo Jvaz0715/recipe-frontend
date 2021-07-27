@@ -49,14 +49,19 @@ table {
     font-family: arial, sans-serif;
     border-collapse: collapse;
     width: 100%;
+
 }
   
 td, th {
     border: 1px solid #dddddd;
-    text-align: left;
+    text-align: center;
     padding: 8px;
 }
   
 tr:nth-child(even) {
     background-color: #335c6789;
+}
+
+.table-container{
+    width: 40vw;
 }

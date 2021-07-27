@@ -42,6 +42,8 @@ export class RecipeDetail extends Component {
             
             window.localStorage.setItem("recipeURL", singleRecipeEndpoint.data.recipe.url)
 
+            window.localStorage.setItem("recipeID", this.state.recipeID)
+
             window.localStorage.setItem("cuisineType", singleRecipeEndpoint.data.recipe.cuisineType)
             
             window.localStorage.setItem("dishType", singleRecipeEndpoint.data.recipe.dishType)

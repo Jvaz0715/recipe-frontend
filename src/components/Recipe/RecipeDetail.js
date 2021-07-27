@@ -9,7 +9,12 @@ export class RecipeDetail extends Component {
     dishName: "",
     dishImg: "",
     recipeID: this.props.location.recipeID, // We set this from our "to" in recipe.js <Link/> we need this id to complete our axios get request
-    recipeURL: "",   
+    recipeURL: "",
+    // below applies to the table
+    cuisineType: "",
+    dishType: "",
+    yield: "",
+    source: "",   
     };
 
     // Will mount our function as soon as user opens up page
@@ -37,7 +42,13 @@ export class RecipeDetail extends Component {
             
             window.localStorage.setItem("recipeURL", singleRecipeEndpoint.data.recipe.url)
 
-            window.localStorage.setItem("recipeID", this.state.recipeID);
+            window.localStorage.setItem("cuisineType", singleRecipeEndpoint.data.recipe.cuisineType)
+            
+            window.localStorage.setItem("dishType", singleRecipeEndpoint.data.recipe.dishType)
+            
+            window.localStorage.setItem("yield", singleRecipeEndpoint.data.recipe.yield)
+
+            window.localStorage.setItem("source", singleRecipeEndpoint.data.recipe.source);
 
             
 
@@ -45,6 +56,10 @@ export class RecipeDetail extends Component {
                 dishName: singleRecipeEndpoint.data.recipe.label,
                 dishImg: singleRecipeEndpoint.data.recipe.image,
                 recipeURL: singleRecipeEndpoint.data.recipe.url,
+                cuisineType: singleRecipeEndpoint.data.recipe.cuisineType,
+                dishType: singleRecipeEndpoint.data.recipe.dishType,
+                yield: singleRecipeEndpoint.data.recipe.yield,
+                source: singleRecipeEndpoint.data.recipe.source,
             });
             // console.log("this is the getrecipe setstate")
             // console.log(this.state.recipeID)
@@ -101,23 +116,23 @@ export class RecipeDetail extends Component {
   
                             <tr>
                                 <td>Cuisine Type</td>
-                                <td>{this.state.cuisineType}</td>
+                                <td>{window.localStorage.getItem("cuisineType")}</td>
   
                             </tr>
                             <tr>
                                 <td>Dish Type</td>
-                                <td>{this.state.dishType}</td>
+                                <td>{window.localStorage.getItem("dishType")}</td>
     
                             </tr>
                             <tr>
                                 <td>Yields</td>
-                                <td>{this.state.yield}</td>
+                                <td>{window.localStorage.getItem("yield")}</td>
     
                             </tr>
   
                             <tr>
                                 <td>Source</td>
-                                <td>{this.state.source}</td>
+                                <td>{window.localStorage.getItem("source")}</td>
     
                             </tr>
                         </table>

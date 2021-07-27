@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import axios from "axios";
 import Axios from "../utils/Axios";
 import { toast } from "react-toastify";
-import "./Recipe.css";
+import "./RecipeDetail.css";
 
 export class RecipeDetail extends Component {
     state = {
@@ -12,7 +12,7 @@ export class RecipeDetail extends Component {
     recipeURL: "",   
     };
 
-    // Why do componentDidMount()? TEST:
+    // Will mount our function as soon as user opens up page
     async componentDidMount() {
         try {
             await this.getRecipe();
@@ -26,6 +26,11 @@ export class RecipeDetail extends Component {
         try {
              
             let singleRecipeEndpoint = await axios.get(`https://api.edamam.com/api/recipes/v2/${this.state.recipeID}?type=public&app_id=${process.env.REACT_APP_RECIPE_APPID}&app_key=${process.env.REACT_APP_RECIPE_APIKEY}`);
+
+            // check console to see what data returns as singleRecipeEndpoint
+            console.log("this is the data returned from getRecipe() in RecipeDetail.js, you should see all the data that could be used in the DOM")
+            console.log(singleRecipeEndpoint)
+            
             window.localStorage.setItem("dishName", singleRecipeEndpoint.data.recipe.label)
             
             window.localStorage.setItem("dishImg", singleRecipeEndpoint.data.recipe.image)
@@ -74,30 +79,27 @@ export class RecipeDetail extends Component {
 
     render() {
         return (
+            <div className="recipe-detail-body">
+                
+                    
+                    <img className="recipe-image" src={window.localStorage.getItem("dishImg")} alt={window.localStorage.getItem("dishName")}/>
             
-            <div style={{display: "flex", flexDirection:"column"}}>
-                <div>
-                    <img src={window.localStorage.getItem("dishImg")} alt={window.localStorage.getItem("dishName")}/>
-                </div>
-                <div>
+
                     <div>
-                    <h1>{window.localStorage.getItem("dishName")}</h1>
-                    <div>
+                        
+                        <h1 className="recipe-name-text">{window.localStorage.getItem("dishName")}</h1>
                         <button 
                             className="favorite-button"
                             onClick={this.handleAddtoFavorite}
                         >
                             add to favorites
                         </button>
+           
                     </div>
                     
-                    
+                    <div>
+                        <a href={window.localStorage.getItem("recipeURL")} target="_blank" rel="noreferrer">Click Here for recipe</a>
                     </div>
-                    
-                    <a href={window.localStorage.getItem("recipeURL")} target="_blank" rel="noreferrer">Click Here for recipe</a>
-                </div>
-                
-    
             </div>
         )
     }

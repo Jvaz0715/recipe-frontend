@@ -1,10 +1,13 @@
 .Navbar {
-    height: 75px;
+    height: 100px;
     background-color: #335c67;
     color: white;
     display: flex;
     align-items: center;
     justify-content: space-between;
+    width: 100vw;
+    border: 3px solid pink;
+    margin-bottom: 20px;
   }
   
   .h1-logo {

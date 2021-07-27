@@ -15,16 +15,17 @@ export class Recipe extends Component {
     totalRecipes: 0,
   }
 
-  // async componentDidMount() {
-  //   try {
-  //     this.setState({
-  //       recipeSearch: this.state.recipeSearch,
-  //       recipeHitsArray: this.state.RecipeHitsArray,
-  //     })
-  //   } catch(e) {
-  //     console.log(e)
-  //   }
-  // }
+  async componentDidMount(event) {
+    try {
+       event.preventDefault();
+       this.setState ({
+         recipeHitsArray: this.state.recipeHitsArray,
+       })
+
+    } catch(e) {
+      console.log(e)
+    }
+  }
   
   handleOnChange = (event) => {
     this.setState({
@@ -105,8 +106,6 @@ export class Recipe extends Component {
 
   onSubmit = async (event) => {             
     try {
-      event.target.value ="";
-      this.state.recipeHitsArray = [];
       
       await this.handleSearchRecipesOnSubmit(this.state.recipeSearch);
      

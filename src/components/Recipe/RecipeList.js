@@ -26,8 +26,8 @@ function RecipeList(props) {
                     <div>
                         <img src={item.recipe.image} alt={item.recipe.label}/>
                     </div>
-                    <div style={{ border: "2px solid", backgroundColor:"#9e2a2b"}}>
-                        <p style={{ fontFamily:"georgia", fontSize:"18px", }}>[{props.recipeHitsArray.indexOf(item) + 1}] {item.recipe.label}</p>
+                    <div style={{ backgroundColor:"#9e2a2b"}}>
+                        <p style={{ fontFamily:"georgia", fontSize:"16px", }}>[{props.recipeHitsArray.indexOf(item) + 1}] {item.recipe.label}</p>
                     </div>  
 
                 </Link>

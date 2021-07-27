@@ -85,14 +85,14 @@ export class RecipeDetail extends Component {
                     <img className="recipe-image" src={window.localStorage.getItem("dishImg")} alt={window.localStorage.getItem("dishName")}/>
             
 
-                    <div>
+                    <div className="title-container">
                         
                         <h1 className="recipe-name-text">{window.localStorage.getItem("dishName")}</h1>
                         <button 
                             className="favorite-button"
                             onClick={this.handleAddtoFavorite}
-                        >
-                            add to favorites
+                        >   <span>Add to Favorites</span>
+                            <img className="heart-icon" src="https://lh3.googleusercontent.com/proxy/sKtxcsKRAFWsY-fKh6SJu1s65fEomT3HQ5X8XlTyEUJPSqrK1YkA2xMrKkSVygHV7Ef8BfF726R_RIrZYF_cgulZ" alt="favorite-button"/>
                         </button>
            
                     </div>

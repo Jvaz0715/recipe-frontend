@@ -13,7 +13,34 @@
     height:300px;
 }
 
+.title-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
 .recipe-name-text {
     font-family: georgia;
     color: #9e2a2b;
+}
+.favorite-button {
+    /* background-color: red; */
+    margin-left: 5px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+.favorite-button:hover {
+    background-color: red;
+    border: 1px solid gray;
+    border-radius: 5%;
+}
+
+.heart-icon {
+    width: 15px;
+    height: 15px;
+    display: inline-block;
+    margin-left: 2px;
 }

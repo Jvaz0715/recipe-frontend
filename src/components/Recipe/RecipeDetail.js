@@ -46,8 +46,8 @@ export class RecipeDetail extends Component {
                 dishImg: singleRecipeEndpoint.data.recipe.image,
                 recipeURL: singleRecipeEndpoint.data.recipe.url,
             });
-            console.log("this is the getrecipe setstate")
-            console.log(this.state.recipeID)
+            // console.log("this is the getrecipe setstate")
+            // console.log(this.state.recipeID)
             
         
         } catch(e) {
@@ -96,7 +96,32 @@ export class RecipeDetail extends Component {
                         </button>
            
                     </div>
-                    
+                    <div>
+                        <table>
+  
+                            <tr>
+                                <td>Cuisine Type</td>
+                                <td>{this.state.cuisineType}</td>
+  
+                            </tr>
+                            <tr>
+                                <td>Dish Type</td>
+                                <td>{this.state.dishType}</td>
+    
+                            </tr>
+                            <tr>
+                                <td>Yields</td>
+                                <td>{this.state.yield}</td>
+    
+                            </tr>
+  
+                            <tr>
+                                <td>Source</td>
+                                <td>{this.state.source}</td>
+    
+                            </tr>
+                        </table>
+                    </div>
                     <div>
                         <a href={window.localStorage.getItem("recipeURL")} target="_blank" rel="noreferrer">Click Here for recipe</a>
                     </div>

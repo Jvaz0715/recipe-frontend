@@ -2,9 +2,9 @@ import React, { Component } from 'react';
 import axios from "axios";
 
 // import { Link } from "react-router-dom";
-
 import RecipeList from "./RecipeList";
 import "./Recipe.css";
+import { Button } from 'reactstrap';
 
 export class Recipe extends Component {
   
@@ -126,7 +126,8 @@ export class Recipe extends Component {
             name="recipe"
             onChange={this.handleOnChange}
           />
-        <button className="search-recipe-button" onClick={this.onSubmit}>Submit</button>
+         <Button className="search-recipe-button" onClick={this.onSubmit} color="danger">Search</Button> 
+        {/* <button  onClick={this.onSubmit}>Submit</button> */}
         </div>
 
         {/* we need something for the landing page, like three suggestion meals */}

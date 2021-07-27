@@ -147,12 +147,12 @@ export class Recipe extends Component {
             )
           }
           </div>
-          <button 
+          <Button 
             onClick={this.handleSearchRecipesOnNext}
             hidden={this.state.totalRecipes < 1 || this.state.totalRecipes >= 120 ? (true):(false)}
           >
             More recipes...
-          </button>
+          </Button>
 
         </div>
         

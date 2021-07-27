@@ -3,6 +3,7 @@ import axios from "axios";
 import Axios from "../utils/Axios";
 import { toast } from "react-toastify";
 import "./RecipeDetail.css";
+import { Button } from 'reactstrap';
 
 export class RecipeDetail extends Component {
     state = {
@@ -105,12 +106,13 @@ export class RecipeDetail extends Component {
                     <div className="title-container">
                         
                         <h1 className="recipe-name-text">{window.localStorage.getItem("dishName")}</h1>
-                        <button 
+                        <Button 
                             className="favorite-button"
+                            color="danger"
                             onClick={this.handleAddtoFavorite}
-                        >   <span>Add to Favorites</span>
+                        >   <span> save</span>
                             <img className="heart-icon" src="https://lh3.googleusercontent.com/proxy/sKtxcsKRAFWsY-fKh6SJu1s65fEomT3HQ5X8XlTyEUJPSqrK1YkA2xMrKkSVygHV7Ef8BfF726R_RIrZYF_cgulZ" alt="favorite-button"/>
-                        </button>
+                        </Button>
            
                     </div>
                     <div className="table-container">

@@ -21,6 +21,7 @@
   width: 300px;
   flex-direction: row;
   justify-content: space-around;
+  align-items: center;
 }
 
 .recipe-range {

@@ -4,7 +4,7 @@ import axios from "axios";
 // import { Link } from "react-router-dom";
 import RecipeList from "./RecipeList";
 import "./Recipe.css";
-import { Button, Card, CardImg, CardText, CardBody, CardTitle } from 'reactstrap';
+import { Button, /*Card, CardImg, CardText, CardBody, CardTitle*/ } from 'reactstrap';
 
 export class Recipe extends Component {
   

@@ -4,6 +4,7 @@ import Axios from "../utils/Axios";
 import { toast } from "react-toastify";
 import "./RecipeDetail.css";
 import { Button } from 'reactstrap';
+import heart from "./Images/heart.png"
 
 export class RecipeDetail extends Component {
     state = {
@@ -111,7 +112,7 @@ export class RecipeDetail extends Component {
                             color="danger"
                             onClick={this.handleAddtoFavorite}
                         >   <span> save</span>
-                            <img className="heart-icon" src="https://lh3.googleusercontent.com/proxy/sKtxcsKRAFWsY-fKh6SJu1s65fEomT3HQ5X8XlTyEUJPSqrK1YkA2xMrKkSVygHV7Ef8BfF726R_RIrZYF_cgulZ" alt="favorite-button"/>
+                            <img className="heart-icon" src={heart} alt="favorite-button"/>
                         </Button>
            
                     </div>

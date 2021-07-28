@@ -16,9 +16,20 @@ body {
   }
   
   .form-text {
+    font-family: georgia;
+    font-weight: bold;
+    color: #9e2a2b;
     text-align: center;
     margin: 25px 25px;
     font-size: 40px;
+  }
+
+  .form-text p {
+    font-family: georgia;
+    font-weight: bold;
+    color: #9e2a2b;
+    font-size: 60px;
+  
   }
   
   .form-div {

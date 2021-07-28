@@ -4,8 +4,8 @@ body {
   
   .container {
     width: 850px;
-    height: 600px;
-    background-color: white;
+    height: 800px;
+    /* border: 3px solid red; */
     box-shadow: 10px 5px 5px rgba(0, 0, 0, 0.2);
     position: absolute;
     top: 0;
@@ -16,14 +16,26 @@ body {
   }
   
   .form-text {
+    font-family: georgia;
+    font-weight: bold;
+    color: #9e2a2b;
     text-align: center;
-    margin: 25px 25px;
-    font-size: 40px;
+    margin: 20px 20px;
+  }
+
+  .form-text p {
+    font-family: georgia;
+    font-weight: bold;
+    color: #9e2a2b;
+    font-size: 30px;
+  
   }
   
   .form-div {
     display: flex;
     justify-content: center;
+    height: 100%;
+    padding: 5px;
   }
   
   .form-group-inline {

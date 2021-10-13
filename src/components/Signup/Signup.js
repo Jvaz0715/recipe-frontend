@@ -253,7 +253,7 @@ export class Signup extends Component {
 
     /* compondentDidUpdate: if we know each input is being touched or focused on, we then make sure there are no errors, then we could make buttondisabled to false. we wnat to make sure each field was touched and that the inputs do not have an error message, we bring the button up*/
     componentDidUpdate(prevProps, prevState) {
-        console.log(prevState.isButtonDisabled);
+        // console.log(prevState.isButtonDisabled);
          //if prevState.isButtonDisabled is true then we run function. Otherwise we will end up in an infinite loop, if at anypoint an errormessage is applied to any input field, this will set buttonDisabled to true
         if (prevState.isButtonDisabled === true) {
             if (

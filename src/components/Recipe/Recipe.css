@@ -1,5 +1,7 @@
 .recipeBody {
   height: 80vh;
+  width: 100vw;
+  border: 1px solid blue;
 }
 
 .input-div {
@@ -7,13 +9,14 @@
   justify-content: center;
   align-items: center;
   margin-top: 20px;
-  
+  /* border: 1px solid green; */
 }
 
 .recipe-search {
   width: 300px;
   height: 36px;
   margin-right: 2px;
+  
 }
 
 .page-nav-div {
@@ -22,6 +25,7 @@
   flex-direction: row;
   justify-content: space-around;
   align-items: center;
+  
 }
 
 .recipe-range {

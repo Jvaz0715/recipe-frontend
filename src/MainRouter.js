@@ -10,7 +10,6 @@ import Recipe from "./components/Recipe/Recipe";
 import FavoriteRecipes from "./components/FavoriteRecipes/FavoriteRecipes";
 import RecipeDetail from "./components/Recipe/RecipeDetail";
 import PrivateRoute from "./components/PrivateRoute/PrivateRoute";
-import Footer from "./components/Footer/Footer";
 
 const MainRouter = (props) => {
     //in here we make a <Router> Which will encompass the routes, and later the private routes, to get to our components</Router>
@@ -47,10 +46,7 @@ const MainRouter = (props) => {
                     path="/favorite-recipes" 
                     component={FavoriteRecipes}
                 />
-
-                <Footer />
             </>
-            
         </Router>   
     )
     

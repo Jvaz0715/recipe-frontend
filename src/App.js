@@ -67,7 +67,6 @@ export class App extends Component {
           handleUserLogin={this.handleUserLogin}
           handleUserLogout={this.handleUserLogout}
         />
-        
       </>
     )
   }

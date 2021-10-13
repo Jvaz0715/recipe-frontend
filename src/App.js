@@ -3,6 +3,7 @@ import { ToastContainer } from "react-toastify"; //gives us our success or error
 import jwtDecode from "jwt-decode"; //helps decode token for use in functions
 
 import MainRouter from "./MainRouter";
+
 import setAxiosAuthToken from "./components/utils/setAxiosAuthToken";
 import "./App.css";
 
@@ -66,6 +67,7 @@ export class App extends Component {
           handleUserLogin={this.handleUserLogin}
           handleUserLogout={this.handleUserLogout}
         />
+        
       </>
     )
   }

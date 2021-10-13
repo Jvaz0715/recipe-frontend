@@ -1,11 +1,12 @@
 .Footer {
+    box-sizing: border-box;
     height: 75px;
+    width: 100vw;
     background-color: #335c67;
     color: white;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    position: absolute;
     left:0;
     bottom:0;
     right:0;

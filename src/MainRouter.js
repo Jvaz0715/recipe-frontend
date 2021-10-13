@@ -47,8 +47,10 @@ const MainRouter = (props) => {
                     path="/favorite-recipes" 
                     component={FavoriteRecipes}
                 />
+
+                <Footer />
             </>
-            <Footer />
+            
         </Router>   
     )
     

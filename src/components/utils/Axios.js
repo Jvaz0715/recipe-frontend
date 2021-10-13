@@ -2,9 +2,9 @@ import axios from "axios";
 
 const Axios = axios.create({
   baseURL:
-    process.env.NODE_ENV === "development"
-      ? "http://localhost:8080"
-      : "deploy CLOUD ADDRESS",
+    process.env.REACT_APP_AXIOS === "development"
+      ? "http://localhost:3001"
+      : "/",
   timeout: 50000,
 });
 

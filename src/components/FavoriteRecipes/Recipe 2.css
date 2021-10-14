@@ -1,0 +1,27 @@
+.recipeBody {
+  height: 100%
+}
+
+.input-div {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px;
+  
+}
+
+.recipe-search {
+  width: 300px;
+}
+
+.page-nav-div {
+  display: flex;
+  width: 300px;
+  flex-direction: row;
+  justify-content: space-around;
+}
+
+.recipe-range {
+  color: black;
+  font-size: 14px;
+}

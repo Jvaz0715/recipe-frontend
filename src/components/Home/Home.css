@@ -33,18 +33,18 @@
 }
 
 .home-app-description-container {
-    width: 60%;
-    height: 80%;
+    width: 300px;
+    height: 500px;
     background-color: #9e2a2b;
     /* border: 3px solid green; */
     display: flex;
-    border-radius: 10%;
+    border-radius: 20px;
     justify-content: center;
     align-items: center; 
 }
 
 .description-div {
-    width: 80%;
+    width: 90%;
     height: 50%;
     /* border: 3px solid pink; */
    
@@ -59,4 +59,9 @@
 
 .description-text p {
     font-size: 15px;
+}
+
+.home-links {
+    color: white;
+    font-weight: bold;
 }

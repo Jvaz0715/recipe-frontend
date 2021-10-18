@@ -162,9 +162,7 @@ export class Recipe extends Component {
         
         <div
           style={{
-            width: 1500,
             margin: "0 auto",
-          
             textAlign: "center",
             marginTop: "50px",
             display: "flex",

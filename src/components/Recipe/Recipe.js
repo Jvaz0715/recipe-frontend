@@ -80,6 +80,7 @@ export class Recipe extends Component {
     try {
       let recipeData = await axios.get(
           `https://api.edamam.com/api/recipes/v2?type=public&q=${recipeSearched}&app_id=${process.env.REACT_APP_RECIPE_APPID}&app_key=${process.env.REACT_APP_RECIPE_APIKEY}`
+
       );
       this.handleSearchRecipesDynamic(recipeData);
   
@@ -107,6 +108,7 @@ export class Recipe extends Component {
       await this.handleSearchRecipesOnSubmit(this.state.recipeSearch);
      
     } catch (e) {
+      alert("enter valid entry")
       console.log(e);
     }
   };

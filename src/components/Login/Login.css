@@ -3,11 +3,11 @@ body {
   }
   
   .container {
-    width: 650px;
-    height: 600px;
+    width: 350px;
+    height: 650px;
     background-color: white;
     box-shadow: 10px 5px 5px rgba(0, 0, 0, 0.2);
-    position: absolute;
+    position: relative;
     top: 0;
     bottom: 0;
     left: 0;
@@ -22,19 +22,20 @@ body {
     text-align: center;
     margin: 25px 25px;
     font-size: 40px;
+   
   }
 
   .form-text p {
     font-family: georgia;
     font-weight: bold;
     color: #9e2a2b;
-    font-size: 60px;
-  
+    font-size: 60px;  
   }
   
   .form-div {
     display: flex;
     justify-content: center;
+    
   }
   
   .form-group-inline {
@@ -44,6 +45,7 @@ body {
   
   .form {
     width: 100%;
+    
   }
   
   .form-group-inline .inline-container {
@@ -58,6 +60,7 @@ body {
   .form-group-inline .inline-container input {
     padding: 5px 5px;
     width: 300px;
+    border: 2px solid blue;
   }
   
   .form-group-block {
@@ -99,4 +102,5 @@ body {
     font-size: 16px;
     color: red;
   }
+
   

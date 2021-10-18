@@ -316,7 +316,7 @@ export class Signup extends Component {
             <div className="form-div">
               <form className="form" onSubmit={this.handleOnSubmit}>
                 <div className="form-group-inline">
-                  <div className="inline-container">
+                    <div className="inline-container">
                     <label htmlFor="firstName">First Name</label>
                     <input
                       type="text"
@@ -392,7 +392,7 @@ export class Signup extends Component {
                   <div className="block-container">
                     <label htmlFor="password">Password</label>
                     <input
-                      type="text"
+                      type="password"
                       id="password"
                       value={password}
                       placeholder="Password"
@@ -411,7 +411,7 @@ export class Signup extends Component {
                   <div className="block-container">
                     <label htmlFor="confirmPassword">Confirm Password</label>
                     <input
-                      type="text"
+                      type="password"
                       id="confirmPassword"
                       value={confirmPassword}
                       placeholder="Confirm Password"

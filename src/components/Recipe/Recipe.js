@@ -81,9 +81,7 @@ export class Recipe extends Component {
       let recipeData = await axios.get(
           `https://api.edamam.com/api/recipes/v2?type=public&q=${recipeSearched}&app_id=${process.env.REACT_APP_RECIPE_APPID}&app_key=${process.env.REACT_APP_RECIPE_APIKEY}`
       );
-      console.log("line 86, recipe.js")
-      console.log("the url for recipeData")
-      console.log(recipeData.config.url)
+      
       this.handleSearchRecipesDynamic(recipeData);
   
     } catch (e) {

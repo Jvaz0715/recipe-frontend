@@ -17,7 +17,7 @@ export class Recipe extends Component {
 
   async componentDidMount(event) {
     try {
-      event.preventDefault();
+      // event.preventDefault();
       this.setState ({
         recipeHitsArray: this.state.recipeHitsArray,
       })
@@ -170,7 +170,7 @@ export class Recipe extends Component {
           }}
         > 
           <div 
-          hidden={this.state.totalRecipes <= 20 || this.state.totalRecipes >= 120 ? (true):(false)}
+            hidden={this.state.totalRecipes <= 20 || this.state.totalRecipes >= 120 ? (true):(false)}
           >Newest to Oldest results</div>
           <div style={{
             width: 1500,

@@ -61,9 +61,6 @@ export class RecipeDetail extends Component {
                 yield: singleRecipeEndpoint.data.recipe.yield,
                 source: singleRecipeEndpoint.data.recipe.source,
             });
-            // console.log("this is the getrecipe setstate")
-            // console.log(this.state.recipeID)
-        
         } catch(e) {
             console.log(e)
         }
@@ -109,6 +106,7 @@ export class RecipeDetail extends Component {
 
                 <div className="table-container">
                     <table>
+                        <thead>
                         <tr>
                             <td>Cuisine Type</td>
                             <td>{window.localStorage.getItem("cuisineType")}</td>
@@ -125,6 +123,7 @@ export class RecipeDetail extends Component {
                             <td>Source</td>
                             <td>{window.localStorage.getItem("source")}</td>
                         </tr>
+                        </thead>
                     </table>
                 </div>
                 <div>

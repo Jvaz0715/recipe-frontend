@@ -1,7 +1,7 @@
 import Axios from "./Axios";
 // we bring in our Axios instance
 
-//we createa a function that takes in our JWTToken, checks if one exists, we assign it to ou headers
+//we create a function that takes in our JWTToken, checks if one exists, we assign it to ou headers
 const setAxiosAuthToken = (jwtToken) => {
     // if a jwt token exists, we set it as to our auth token in headers.common
     if (jwtToken) {

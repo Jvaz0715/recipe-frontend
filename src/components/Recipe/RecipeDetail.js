@@ -22,16 +22,14 @@ export class RecipeDetail extends Component {
     // Will mount our function as soon as user opens up page
     async componentDidMount() {
         try {
-            await this.getRecipe();
-            
+            await this.getRecipe();   
         } catch(e){
             console.log(e)
-       }
+        }
     };
 
     getRecipe = async () => {
         try {
-             
             let singleRecipeEndpoint = await axios.get(`https://api.edamam.com/api/recipes/v2/${this.state.recipeID}?type=public&app_id=${process.env.REACT_APP_RECIPE_APPID}&app_key=${process.env.REACT_APP_RECIPE_APIKEY}`);
 
             // check console to see what data returns as singleRecipeEndpoint
@@ -54,8 +52,6 @@ export class RecipeDetail extends Component {
 
             window.localStorage.setItem("source", singleRecipeEndpoint.data.recipe.source);
 
-            
-
             this.setState({
                 dishName: singleRecipeEndpoint.data.recipe.label,
                 dishImg: singleRecipeEndpoint.data.recipe.image,
@@ -67,10 +63,9 @@ export class RecipeDetail extends Component {
             });
             // console.log("this is the getrecipe setstate")
             // console.log(this.state.recipeID)
-            
         
         } catch(e) {
-           console.log(e)
+            console.log(e)
         }
     };
 
@@ -114,15 +109,15 @@ export class RecipeDetail extends Component {
                         >   <span> save</span>
                             <img className="heart-icon" src={heart} alt="favorite-button"/>
                         </Button>
-           
+
                     </div>
                     <div className="table-container">
                         <table>
-  
+
                             <tr>
                                 <td>Cuisine Type</td>
                                 <td>{window.localStorage.getItem("cuisineType")}</td>
-  
+
                             </tr>
                             <tr>
                                 <td>Dish Type</td>
@@ -134,11 +129,11 @@ export class RecipeDetail extends Component {
                                 <td>{window.localStorage.getItem("yield")}</td>
     
                             </tr>
-  
+
                             <tr>
                                 <td>Source</td>
                                 <td>{window.localStorage.getItem("source")}</td>
-    
+
                             </tr>
                         </table>
                     </div>
@@ -147,8 +142,8 @@ export class RecipeDetail extends Component {
                     </div>
             </div>
         )
-    }
-}
+    };
+};
 
 export default RecipeDetail;
 

@@ -94,52 +94,42 @@ export class RecipeDetail extends Component {
     render() {
         return (
             <div className="recipe-detail-body">
-                
-                    
-                    <img className="recipe-image" src={window.localStorage.getItem("dishImg")} alt={window.localStorage.getItem("dishName")}/>
-            
+                <img className="recipe-image" src={window.localStorage.getItem("dishImg")} alt={window.localStorage.getItem("dishName")}/>
+                <div className="title-container">
+                    <h1 className="recipe-name-text">{window.localStorage.getItem("dishName")}</h1>
+                    <Button 
+                        className="favorite-button"
+                        color="danger"
+                        onClick={this.handleAddtoFavorite}
+                    >
+                        <span> save</span>
+                        <img className="heart-icon" src={heart} alt="favorite-button"/>
+                    </Button>
+                </div>
 
-                    <div className="title-container">
-                        
-                        <h1 className="recipe-name-text">{window.localStorage.getItem("dishName")}</h1>
-                        <Button 
-                            className="favorite-button"
-                            color="danger"
-                            onClick={this.handleAddtoFavorite}
-                        >   <span> save</span>
-                            <img className="heart-icon" src={heart} alt="favorite-button"/>
-                        </Button>
-
-                    </div>
-                    <div className="table-container">
-                        <table>
-
-                            <tr>
-                                <td>Cuisine Type</td>
-                                <td>{window.localStorage.getItem("cuisineType")}</td>
-
-                            </tr>
-                            <tr>
-                                <td>Dish Type</td>
-                                <td>{window.localStorage.getItem("dishType")}</td>
-    
-                            </tr>
-                            <tr>
-                                <td>Yields</td>
-                                <td>{window.localStorage.getItem("yield")}</td>
-    
-                            </tr>
-
-                            <tr>
-                                <td>Source</td>
-                                <td>{window.localStorage.getItem("source")}</td>
-
-                            </tr>
-                        </table>
-                    </div>
-                    <div>
-                        <a href={window.localStorage.getItem("recipeURL")} target="_blank" rel="noreferrer">Click Here for recipe</a>
-                    </div>
+                <div className="table-container">
+                    <table>
+                        <tr>
+                            <td>Cuisine Type</td>
+                            <td>{window.localStorage.getItem("cuisineType")}</td>
+                        </tr>
+                        <tr>
+                            <td>Dish Type</td>
+                            <td>{window.localStorage.getItem("dishType")}</td>
+                        </tr>
+                        <tr>
+                            <td>Yields</td>
+                            <td>{window.localStorage.getItem("yield")}</td>
+                        </tr>
+                        <tr>
+                            <td>Source</td>
+                            <td>{window.localStorage.getItem("source")}</td>
+                        </tr>
+                    </table>
+                </div>
+                <div>
+                    <a href={window.localStorage.getItem("recipeURL")} target="_blank" rel="noreferrer">Click Here for recipe</a>
+                </div>
             </div>
         )
     };

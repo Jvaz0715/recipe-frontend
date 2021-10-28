@@ -104,9 +104,7 @@ export class Recipe extends Component {
 
   onSubmit = async (event) => {             
     try {
-      
       await this.handleSearchRecipesOnSubmit(this.state.recipeSearch);
-     
     } catch (e) {
       alert("enter valid entry")
       console.log(e);
@@ -124,8 +122,8 @@ export class Recipe extends Component {
             name="recipe"
             onChange={this.handleOnChange}
           />
-         <Button className="search-recipe-button" onClick={this.onSubmit} color="danger">Search</Button> 
-        {/* <button  onClick={this.onSubmit}>Submit</button> */}
+          <Button className="search-recipe-button" onClick={this.onSubmit} color="danger">Search</Button> 
+          {/* <button  onClick={this.onSubmit}>Submit</button> */}
         </div>
   
         {/* we need something for the landing page, like three suggestion meals */}

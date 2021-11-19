@@ -39,7 +39,6 @@ export class Recipe extends Component {
   }
   deleteFaveRecipe = async(id) => {
       try {
-       
           let deletedRecipe = await Axios.delete(`/api/favorite-recipes/delete-recipe/${id}`);
           console.log(deletedRecipe);
           this.handleDeleteByRecipe(deletedRecipe.data.payload);
@@ -55,12 +54,10 @@ export class Recipe extends Component {
   render() {
     return (
       <div className="recipeBody">
-        
         <div
           style={{
             width: 1500,
             margin: "0 auto",
-          
             textAlign: "center",
             marginTop: "50px",
             display: "flex",
@@ -81,14 +78,11 @@ export class Recipe extends Component {
               deleteFaveRecipe={this.deleteFaveRecipe}
             />
             </div>
-          
         </div>
-        
-        
       </div>
     )
   }
-}
+};
 
 export default Recipe;
 

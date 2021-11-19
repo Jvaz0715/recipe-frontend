@@ -1,15 +1,7 @@
 import React from 'react';
-// import { Link } from "react-router-dom";
-// import axios from "axios";
-// import { toast } from "react-toastify";
-// import Axios from "../utils/Axios";
-
 
 function FavoriteRecipesList(props) {
-    
     return props.recipeHitsArray.map((item) => {
-        // console.log("this is props")
-        // console.log(props)
         return (
             <div>
                 <div

@@ -11,7 +11,7 @@ export class App extends Component {
   
   state = {
     user: null,
-    // we set a null user that will change on whetehr or not a authorized user is signed up or logged in
+    // we set a null user that will change on whether or not an authorized user is signed up or logged in
   };
 
   //if we have an active token on did mount, we are logged in, else we will be taken to the login page
